@@ -1,0 +1,20 @@
+{
+  "ROOT_URL_TEMPLATE": "{{ROOT_URL}}",
+  "THIS_URL_TEMPLATE": "{{THIS_URL}}",
+  "PARENT_URL_TEMPLATE": "{{PARENT_URL}}",
+  "builds": [{
+    "name": "dev",
+    "ROOT_URL": "http://localhost:3001",
+    "aliases": {
+      "utils/infog-spreader": "components/infog-spreader",
+      "utils/sensitive-image-toggler": "components/sensitive-image-toggler"
+    }
+  }, {
+    "name": "prod",
+    "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics",
+    "aliases": {
+      "utils/infog-spreader": "components/infog-spreader",
+      "utils/sensitive-image-toggler": "components/sensitive-image-toggler"
+    }
+  }]
+}

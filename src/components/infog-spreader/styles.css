@@ -1,0 +1,120 @@
+.lmv-infog-spreader {
+  position: relative;
+  border-radius: 2px;
+  border: 1px solid #D5D8DC;
+  overflow: hidden;
+}
+
+.lmv-infog-spreader data {
+  display: none;
+}
+
+.lmv-infog-spreader.lmv-infog-spreader_init {
+  display: none;
+}
+
+.lmv-infog-spreader__head {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #D5D8DC;
+  cursor: pointer;
+}
+
+.lmv-infog-spreader__title {
+  font-family: "Marr-Sans", Helvetica, Arial, Roboto, sans-serif;
+  color: #2A303C;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.lmv-infog-spreader__arrow-button {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  background-color: transparent;
+  background-image: url('./assets/arrow.png');
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+  transition: transform 400ms;
+}
+
+.lmv-infog-spreader.lmv-infog-spreader_opened
+  .lmv-infog-spreader__arrow-button {
+    transform: rotateZ(180deg);
+}
+
+.lmv-infog-spreader__content {
+  position: relative;
+  min-height: 100px;
+  height: var(--collapsed-height);
+  overflow: hidden;
+  transition: height 400ms;
+}
+
+.lmv-infog-spreader.lmv-infog-spreader_opened
+  .lmv-infog-spreader__content {
+    height: var(--expanded-height);
+}
+
+.lmv-infog-spreader__image-collapsed,
+.lmv-infog-spreader__image-expanded {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.lmv-infog-spreader__image-expanded {
+  opacity: 0;
+  visibility: collapse;
+  transition: opacity 400ms, visibility 405ms 2ms;
+}
+
+.lmv-infog-spreader.lmv-infog-spreader_opened
+  .lmv-infog-spreader__image-expanded {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 400ms 5ms, visibility 2ms;
+}
+
+.lmv-infog-spreader__expand-button {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  padding: 8px;
+  cursor: pointer;
+  background-color: rgb(42, 48, 60, .8);
+  border: 1px solid #2A303C;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: visibility 2ms, opacity 400ms 5ms;
+}
+
+.lmv-infog-spreader.lmv-infog-spreader_opened
+  .lmv-infog-spreader__expand-button {
+    opacity: 0;
+    visibility: collapse;
+    transition: visibility 2ms 405ms, opacity 400ms;
+}
+
+.lmv-infog-spreader__expand-icon {
+  width: 16px;
+  height: 16px;
+  background-image: url('./assets/expand.png');
+  background-size: cover;
+  margin-right: 8px;
+}
+
+.lmv-infog-spreader__expand-text {
+  font-family: "Marr-Sans", Helvetica, Arial, Roboto, sans-serif;
+  color: #FCFCFD;
+  font-weight: 500;
+  font-size: 14px;
+}

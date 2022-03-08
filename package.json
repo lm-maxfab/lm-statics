@@ -1,0 +1,28 @@
+{
+  "name": "lm-statics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "build": "node --experimental-json-modules ./scripts/build.js",
+    "start-dev-server": "http-server builds/prod -p 3001 --cors",
+    "start-prod-server": "http-server builds/dev -p 3001 --cors",
+    "watch-source": "nodemon --experimental-json-modules ./scripts/build.js",
+    "start": "concurrently \"npm run watch-source\" \"npm run start-dev-server\"",
+    "dev": "concurrently \"npm run watch-source\" \"npm run start-prod-server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "fs-extra": "^10.0.1",
+    "http-server": "^14.1.0",
+    "marked": "^4.0.12",
+    "nodemon": "^2.0.15",
+    "prompts": "^2.4.2",
+    "sanitize-html": "^2.7.0",
+    "sass": "^1.49.9",
+    "typescript": "^4.6.2"
+  }
+}
