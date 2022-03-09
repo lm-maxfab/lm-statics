@@ -6,6 +6,9 @@
     "name": "dev",
     "ROOT_URL": "http://localhost:3001",
     "aliases": {
+      "fonts/developpment.css": "fonts/fonts.css",
+      "fonts/production.css": "fonts/fonts.css",
+      "fonts/staging.css": "fonts/fonts.css",
       "utils/infog-spreader": "components/infog-spreader",
       "utils/sensitive-image-toggler": "components/sensitive-image-toggler"
     }
@@ -13,6 +16,9 @@
     "name": "prod",
     "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics",
     "aliases": {
+      "fonts/developpment.css": "fonts/fonts.css",
+      "fonts/production.css": "fonts/fonts.css",
+      "fonts/staging.css": "fonts/fonts.css",
       "utils/infog-spreader": "components/infog-spreader",
       "utils/sensitive-image-toggler": "components/sensitive-image-toggler"
     }

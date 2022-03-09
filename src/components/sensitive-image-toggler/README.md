@@ -6,7 +6,12 @@ In any article, add this script and the css via a snippet:
 
 ```html
 <link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ROOT_URL}}/components/styles.css" />
+<link
 	rel="stylesheet"
+  type="text/css"
   href="{{PARENT_URL}}/styles.css" />
 <script
 	defer

@@ -12,6 +12,10 @@ In any article, add these css and js:
 <link
   rel="stylesheet"
   type="text/css"
+  href="{{ROOT_URL}}/components/styles.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
   href="{{PARENT_URL}}/styles.css">
 <style>
   .lmv-infog-spreader data { display: none; }

@@ -9,17 +9,17 @@
       <div class="lm-app-fake-lm-header__inner">
         <div class="lm-app-fake-lm-header__burger-and-logo">
           <div class="lm-app-fake-lm-header__burger">
-            <img src="{{ROOT_URL}}/lm-app/le-monde-inject-fake-page/assets/burger-icon.svg" />
+            <img src="{{PARENT_URL}}/assets/burger-icon.svg" />
           </div>
           <div class="lm-app-fake-lm-header__logo">
             <a href="https://www.lemonde.fr/">
-            <img src="{{ROOT_URL}}/lm-app/le-monde-inject-fake-page/assets/lm-logo.svg" />
+            <img src="{{PARENT_URL}}/assets/lm-logo.svg" />
             </a>
           </div>
         </div>
         <div class="lm-app-fake-lm-header__tabs">
           <span class="lm-app-fake-lm-header__tab">
-          <img src="{{ROOT_URL}}/lm-app/le-monde-inject-fake-page/assets/home-icon.svg" />
+          <img src="{{PARENT_URL}}/assets/home-icon.svg" />
           </span>
           <span class="lm-app-fake-lm-header__tab">Actualités</span>
           <span class="lm-app-fake-lm-header__tab">Économie</span>
@@ -29,11 +29,11 @@
           <span class="lm-app-fake-lm-header__tab">M le Mag</span>
           <span class="lm-app-fake-lm-header__tab">Services</span>
           <span class="lm-app-fake-lm-header__tab">
-          <img src="{{ROOT_URL}}/lm-app/le-monde-inject-fake-page/assets/search-icon.svg" />
+          <img src="{{PARENT_URL}}/assets/search-icon.svg" />
           </span>
         </div>
         <div class="lm-app-fake-lm-header__account">
-          <img src="{{ROOT_URL}}/lm-app/le-monde-inject-fake-page/assets/profile-pic.svg" />
+          <img src="{{PARENT_URL}}/assets/profile-pic.svg" />
           <span class="lm-app-fake-lm-header__account-name">U. SERNAME</span>
         </div>
       </div>
