@@ -1,3 +1,7 @@
+:root {
+  --lm-lemonde-default-objects-max-width: 100%;
+}
+
 @viewport {
   zoom: 1.0;
   user-zoom: fixed;
@@ -10,7 +14,7 @@ body, html {
 }
 
 img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {
-  max-width: 100%;
+  max-width: var(--lm-lemonde-default-objects-max-width);
 }
 
 input:focus, select:focus, textarea:focus, button:focus {

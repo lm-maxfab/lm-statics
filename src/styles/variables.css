@@ -1,0 +1,12 @@
+.lm-app, .lmv-component {
+
+  /* Cancel lemonde.fr's reset */
+  --lm-lemonde-default-objects-max-width: unset;
+
+  /* Fonts */
+  --ff-the-antiqua-b:       "The-Antiqua-B", Garamond, Times, serif;
+  --ff-marr-sans:           "Marr-Sans", Helvetica, Arial, Roboto, sans-serif;
+  --ff-marr-sans-condensed: "Marr-Sans-Condensed", Helvetica, Arial, Roboto, sans-serif;
+  --ff-fette-engschrift:    "Fette-Engschrift", Helvetica, Arial, sans-serif;
+
+}

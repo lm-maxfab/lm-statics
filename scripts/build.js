@@ -112,7 +112,6 @@ async function build () {
             sanitizedHtmlContent,
             { encoding: 'utf-8' }
           )
-          await fse.rm(fileData.path)
         }
 
         // Compile TypeScript

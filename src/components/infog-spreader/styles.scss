@@ -94,7 +94,11 @@
   border-radius: 4px;
   display: flex;
   align-items: center;
-  transition: visibility 2ms, opacity 400ms 5ms;
+  transition: visibility 2ms, opacity 400ms 5ms, background-color 200ms;
+}
+
+.lmv-infog-spreader__expand-button:hover {
+  background-color: rgb(42, 48, 60, 1);
 }
 
 .lmv-infog-spreader.lmv-infog-spreader_opened

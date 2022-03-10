@@ -4,15 +4,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/fonts/fonts.css">
-    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/components/styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/fonts.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/variables.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/components/styles.css">
     <link rel="stylesheet" type="text/css" href="{{PARENT_URL}}/styles.css">
     <style>.lmv-infog-spreader data { display: none; }</style>
   </head>
 
   <body style="max-width: 600px">
 
-    <div class="lmv-infog-spreader lmv-infog-spreader_init">
+    <div class="lmv-component lmv-infog-spreader lmv-infog-spreader_init">
       <data title="image_collapsed_url">{{PARENT_URL}}/assets/example-map-1.png</data>
       <data title="image_expanded_url">{{PARENT_URL}}/assets/example-map-2.png</data>
       <data title="collapsed_height_percent">30</data>
@@ -20,7 +22,8 @@
       <data title="button_text">Voir le détail</data>
     </div>
 
-    <script src="{{PARENT_URL}}/index.js"></script>
+    <script defer type="text/javascript" src="{{ROOT_URL}}/components/index.js"></script>
+    <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
   </body>
 
 </html>
