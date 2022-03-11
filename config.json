@@ -7,6 +7,10 @@
     "ROOT_URL": "http://localhost:3001",
     "aliases": {}
   }, {
+    "name": "stg",
+    "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics-stg",
+    "aliases": {}
+  }, {
     "name": "prod",
     "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics",
     "aliases": {}

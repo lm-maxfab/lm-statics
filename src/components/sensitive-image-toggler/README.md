@@ -14,12 +14,12 @@ In any article, add this script and the css via a snippet:
 <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
 ```
 
-Then, create as many snippets as you want, containing the following dom structure. The contents in .lmv-image-sensitive-toggler__config must be a string of valid JSON in order to be understood by the js.
+Then, create as many snippets as you want, containing the following dom structure. The contents in .lmv-sensitive-image-toggler__config must be a string of valid JSON in order to be understood by the js.
 
 ```html
-<figure class="lmv-image-toggler article__media image-container node_image">
+<figure class="lmv-component lmv-sensitive-image-toggler article__media image-container node_image">
   <span
-    class="lmv-image-toggler__config"
+    class="lmv-sensitive-image-toggler__config"
     style="opacity: 0; visibility: collapse; display: none;">{
     
     "image_url": "https://example.com/image.jpg",
@@ -31,15 +31,15 @@ Then, create as many snippets as you want, containing the following dom structur
     "image_credits": "© Crédits"
   
   }</span>
-  <span class="lmv-image-toggler__image-and-placeholder image">
-    <img class="lmv-image-toggler__image" loading="lazy" src="" />
-    <span class="lmv-image-toggler__placeholder"></span>
-    <span class="lmv-image-toggler__placeholder-content">
-      <p class="lmv-image-toggler__text"></p>
-      <button class="lmv-image-toggler__show-button"></button>
+  <span class="lmv-sensitive-image-toggler__image-and-placeholder image">
+    <img class="lmv-sensitive-image-toggler__image" loading="lazy" src="" />
+    <span class="lmv-sensitive-image-toggler__placeholder"></span>
+    <span class="lmv-sensitive-image-toggler__placeholder-content">
+      <p class="lmv-sensitive-image-toggler__text"></p>
+      <button class="lmv-sensitive-image-toggler__show-button"></button>
     </span>
   </span>
-  <button class="lmv-image-toggler__hide-button"></button>
+  <button class="lmv-sensitive-image-toggler__hide-button"></button>
 </figure>
 ```
 

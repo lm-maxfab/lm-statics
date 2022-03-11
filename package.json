@@ -6,11 +6,14 @@
   "type": "module",
   "scripts": {
     "build": "node --experimental-json-modules ./scripts/build.js",
-    "start-dev-server": "http-server builds/prod -p 3001 --cors",
-    "start-prod-server": "http-server builds/dev -p 3001 --cors",
-    "watch-source": "nodemon --experimental-json-modules ./scripts/build.js",
-    "start": "concurrently \"npm run watch-source\" \"npm run start-dev-server\"",
-    "dev": "concurrently \"npm run watch-source\" \"npm run start-prod-server\""
+    "watch-build": "nodemon --experimental-json-modules ./scripts/build.js",
+    "start-server:dev": "http-server builds/dev -p 3001 --cors",
+    "start-server:stg": "http-server builds/stg -p 3001 --cors",
+    "start-server:prod": "http-server builds/prod -p 3001 --cors",
+    "dev": "concurrently \"npm run watch-build -- dev\" \"npm run start-server:dev\"",
+    "stg": "concurrently \"npm run watch-build -- stg\" \"npm run start-server:stg\"",
+    "prod": "concurrently \"npm run watch-build -- prod\" \"npm run start-server:prod\"",
+    "start": "npm run dev"
   },
   "author": "",
   "license": "ISC",

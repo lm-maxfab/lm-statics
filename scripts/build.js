@@ -29,7 +29,17 @@ async function build () {
     throw err
   }
 
-  for (const buildData of config.builds) {
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   *
+   * BUILD OUTPUTS
+   * 
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  const buildTargetNames = process.argv.slice(2)
+  const buildTargets = buildTargetNames.length !== 0
+    ? config.builds.filter(buildData => buildTargetNames.includes(buildData.name))
+    : config.builds
+
+  for (const buildData of buildTargets) {
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      *
@@ -117,7 +127,7 @@ async function build () {
         // Compile TypeScript
         if (fileData.extension === '.ts') {
           const outPath = fileData.path.replace(/\.ts$/gm, '.js')
-          exec(`tsc ${fileData.path} --outFile ${outPath}`, async (err, stdin, stderr) => {
+          exec(`tsc ${fileData.path} --outFile ${outPath} --target es2015`, async (err, stdin, stderr) => {
             await fse.rm(fileData.path)
             if (err !== null) {
               console.error(err)
