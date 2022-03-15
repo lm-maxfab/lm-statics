@@ -37,19 +37,19 @@
     <data title="title">Les cartes pour comprendre</data>
     <data title="links">
       <data>
-        <data title="link_text">La situation en cours à Kiev et Kharkiv</data>
-        <data title="link_url">https://lemonde.fr</data>
-        <data title="link_date_yyyy_mm_dd_hh_mm">2022-01-1-11-05</data>
+        <data title="text">La situation en cours à Kiev et Kharkiv</data>
+        <data title="post_id">un-id-de-post</data>
+        <data title="date_yyyy_mm_dd_hh_mm">2022-01-1-11-05</data>
       </data>
       <data>
-        <data title="link_text">La situation aux différentes frontières de l’Ukraine</data>
-        <data title="link_url">https://lemonde.fr</data>
-        <data title="link_date_yyyy_mm_dd_hh_mm">2022-02-11-11-05</data>
+        <data title="text">La situation aux différentes frontières de l’Ukraine</data>
+        <data title="post_id">un-id-de-post</data>
+        <data title="date_yyyy_mm_dd_hh_mm">2022-02-11-11-05</data>
       </data>
       <data>
-        <data title="link_text">Les zones contrôlées par l’armée russe au 12ème jour</data>
-        <data title="link_url">https://lemonde.fr</data>
-        <data title="link_date_yyyy_mm_dd_hh_mm">2022-03-11-11-05</data>
+        <data title="text">Les zones contrôlées par l’armée russe au 12ème jour</data>
+        <data title="post_id">un-id-de-post</data>
+        <data title="date_yyyy_mm_dd_hh_mm">2022-03-11-11-05</data>
       </data>
     </data>
   </div>
@@ -60,6 +60,7 @@
   <div class="lmv-component__props" style="display: none;">
     <data title="post_date_yyyy_mm_dd_hh_mm">2022-03-11-11-05</data>
     <data title="post_title">La situation à Kiev et Kharkiv</data>
+    <data title="post_id">un-id-de-post</data>
   </div>
 </div>
 ```

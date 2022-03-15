@@ -37,6 +37,11 @@ declare namespace LM {
     return dateFrText
   }
 
+  function normalizeString (string: string) {
+    return string.toLowerCase()
+      .replace(/[^a-z0-9]/igm, '-')
+  }
+
   /* * * * * * * * * * * * * * * * * * * * *
    *
    * HEAD PARAGRAPHS
@@ -97,9 +102,9 @@ declare namespace LM {
   interface UsefulLinksProps {
     title?: string
     links?: Array<{
-      link_text?: string
-      link_url?: string
-      link_date_yyyy_mm_dd_hh_mm?: string
+      text?: string
+      post_id?: string
+      date_yyyy_mm_dd_hh_mm?: string
     }>
   }
   
@@ -112,8 +117,8 @@ declare namespace LM {
       <h3 class="carto-ukraine-useful-links__title">${props.title}</h3>
       <ul class="carto-ukraine-useful-links__links">${props.links?.map(linkData => `
         <li class="carto-ukraine-useful-links__link">
-          <a class="carto-ukraine-useful-links__actual-link" href="${linkData.link_url}">${linkData.link_text}</a>
-          <p class="carto-ukraine-useful-links__date">${rawDateToReadable(linkData.link_date_yyyy_mm_dd_hh_mm)}</p>
+          <a class="carto-ukraine-useful-links__actual-link" href="#${normalizeString(linkData.post_id ?? '')}">${linkData.text}</a>
+          <p class="carto-ukraine-useful-links__date">${rawDateToReadable(linkData.date_yyyy_mm_dd_hh_mm)}</p>
         </li>`
       ).join('')}</ul>`
   }
@@ -131,6 +136,7 @@ declare namespace LM {
   interface PostHeadProps {
     post_date_yyyy_mm_dd_hh_mm?: string
     post_title?: string
+    post_id?: string
   }
 
   function renderPostHead (node: HTMLElement) {
@@ -140,7 +146,8 @@ declare namespace LM {
     node.innerHTML = `
       ${propsNode?.outerHTML}
       <p class="carto-ukraine-post-head__date">${rawDateToReadable(props.post_date_yyyy_mm_dd_hh_mm)}</p>
-      <p class="carto-ukraine-post-head__title">${props.post_title}</p>`
+      <p class="carto-ukraine-post-head__title">${props.post_title}</p>
+      <span class="carto-ukraine-post-head__anchor" id="${normalizeString(props.post_id ?? '')}"></span>`
   }
 
   const postHeadBlocks = [...document.querySelectorAll('.carto-ukraine-post-head')] as Array<HTMLElement>

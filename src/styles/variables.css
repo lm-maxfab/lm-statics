@@ -13,8 +13,6 @@
   --vw: 1vw;
   --vh: 1vh;
   --rem: 16px;
-
-  /* Utils */
   --nav-height: 65px;
   --visible-screen-height: calc(100 * var(--vh) - var(--nav-height));
   

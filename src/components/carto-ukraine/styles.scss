@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth !important;
+}
+
 .carto-ukraine-head-paragraph {
   p {
     margin: 0;
@@ -131,12 +135,18 @@
     font-family: var(--ff-the-antiqua-b);
     font-weight: 800;
     font-size: 24px;
-    line-height: 1.5;
+    line-height: 1.25;
     color: #2A303C;
     margin: 0;
 
     @media screen and (max-width: 800px) {
       font-size: 22px;
     }
+  }
+
+  .carto-ukraine-post-head__anchor {
+    position: absolute;
+    top: calc(-1 * var(--nav-height) - 32px);
+    visibility: collapse;
   }
 }
