@@ -13,6 +13,13 @@
 <script defer type="text/javascript" src="{{ROOT_URL}}/lib/dayjs/v1.8.21/dayjs.1.8.21.min.js"></script>
 <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
 
+<!-- Cover -->
+<div class="lmv-component carto-ukraine-cover">
+  <div class="lmv-component__props" style="display: none;">
+    <data title="text">Guerre en Ukraine</data>
+  </div>
+</div>
+
 <!-- Paragraphe de tête -->
 <div class="lmv-component carto-ukraine-head-paragraph">
   <div class="lmv-component__props" style="display: none;">

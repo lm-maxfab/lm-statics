@@ -2,6 +2,37 @@ html {
   scroll-behavior: smooth !important;
 }
 
+.carto-ukraine-cover {
+  background-color: #FFFFFF;
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .carto-ukraine-cover__image {
+    height: 280px;
+    background-image: url({{PARENT_URL}}/assets/carte_entete_desktop.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 16px;
+
+    @media screen and (max-width: 1190px) {
+      background-image: url({{PARENT_URL}}/assets/carte_entete_mobile.png);
+    }
+  }
+
+  .carto-ukraine-cover__text {
+    font-family: var(--ff-marr-sans-condensed);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: #717B8E;
+    margin: 0 auto;
+    text-transform: uppercase;
+  }
+}
+
 .carto-ukraine-head-paragraph {
   p {
     margin: 0;
@@ -53,14 +84,18 @@ html {
     font-size: 14px;
     line-height: 1.5;
     color: #666E80;
+  }
 
-    a {
-      color: #383F4E;
-      text-decoration: underline !important;
+  .carto-ukraine-context-paragraph__link {
+    font-family: var(--ff-marr-sans);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #BE1514;
+    text-decoration: underline !important;
 
-      &:hover {
-        text-decoration: none !important;
-      }
+    &:hover {
+      text-decoration: none !important;
     }
   }
 }

@@ -7,10 +7,26 @@ declare namespace LM {
   export type ComponentProp = ComponentStringProp|ComponentObjectProp|ComponentArrayProp
   export interface ComponentProps { [key: string]: ComponentProp }
 
+  export interface LMAppPageSettings {
+    layout: string
+    template: string
+    env: string
+  }
+
   export interface Window extends RawWindow {
     LMV_COMPONENT?: {
       getPropsNode: (node: HTMLElement) => HTMLElement|null
       readProps: (node: HTMLElement) => ComponentProps|undefined
+    }
+
+    LM_UTILS?: {
+      page_settings?: {
+        
+      }
+    }
+
+    LM_APP?: {
+      applyPageSettings?: (settings: LMAppPageSettings) => void
     }
 
     dayjs?: any

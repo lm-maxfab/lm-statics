@@ -5,7 +5,7 @@ import { marked } from 'marked'
 import { exec } from 'child_process'
 import sanitizeHtml from 'sanitize-html'
 import sass from 'sass'
-import config from '../config.json'
+import config from '../config.json' assert { type: 'json' }
 
 build ()
 

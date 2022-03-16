@@ -18,8 +18,12 @@ declare namespace LM {
   function rawDateToReadable (rawDate?: string) {
     const { dayjs } = (window as LM.Window)
     const [year, month, date, hour, minute] = rawDate?.split('-') ?? []
-    const dayObj = dayjs().year(year).month(month).subtract(1, 'month').date(date).hour(hour).minute(minute)
-    const dateEnText = dayObj.format('[Le] D MMM YYYY [à] HH[h]mm')
+    const dayObj = dayjs().year(year ?? '2022').month(month ?? '1').subtract(1, 'month').date(date ?? '1').hour(hour ?? '12').minute(minute ?? '0')
+    let dateEnText = ''
+    if (year === undefined || month === undefined || date === undefined) dateEnText = ''
+    else if (hour === undefined) dateEnText = dayObj.format('[Le] D MMM YYYY')
+    else if (minute === undefined) dateEnText = dayObj.format('[Le] D MMM YYYY [à] HH')
+    else dateEnText = dayObj.format('[Le] D MMM YYYY [à] HH[h]mm')
     const dateFrText = dateEnText
       .replace('Jan', 'janvier')
       .replace('Feb', 'février')
@@ -41,6 +45,31 @@ declare namespace LM {
     return string.toLowerCase()
       .replace(/[^a-z0-9]/igm, '-')
   }
+
+  /* * * * * * * * * * * * * * * * * * * * *
+   *
+   * COVER
+   *
+   * * * * * * * * * * * * * * * * * * * * */
+  interface CoverProps {
+    text?: string
+  }
+
+  function renderCover (node: HTMLElement) {
+    const { LMV_COMPONENT } = (window as LM.Window)
+    const props: CoverProps = LMV_COMPONENT?.readProps(node) ?? {}
+    const propsNode = LMV_COMPONENT?.getPropsNode(node)
+    
+    node.innerHTML = `
+      ${propsNode?.outerHTML}
+      <div class="carto-ukraine-cover__image"></div>
+      <span class="carto-ukraine-cover__text">${props.text}</span>`
+  }
+
+  const coverBlocks = [...document.querySelectorAll('.carto-ukraine-cover')] as Array<HTMLElement>
+  coverBlocks.forEach(node => {
+    renderCover(node)
+  })
 
   /* * * * * * * * * * * * * * * * * * * * *
    *
@@ -85,8 +114,10 @@ declare namespace LM {
     const propsNode = LMV_COMPONENT?.getPropsNode(node)
     node.innerHTML = `
       ${propsNode?.outerHTML}
-      <p class="carto-ukraine-context-paragraph__title">${props.title}</p>
-      <p class="carto-ukraine-context-paragraph__text">${props.text}${props.end_link_url !== undefined ? ` <a href="${props.end_link_url}">${props.end_link_text ?? props.end_link_url}</a>` : ''}</p>`
+      <span class="carto-ukraine-context-paragraph__title">${props.title ?? ''}</span>
+      ${props.text !== undefined && props.text !== '' ? '<br />' : ''}
+      <span class="carto-ukraine-context-paragraph__text">${props.text ?? ''}</span>
+      <span class="carto-ukraine-context-paragraph__link"><a href="${props.end_link_url}">${props.end_link_text ?? props.end_link_url}</a></span>`
   }
 
   const contextParagraphBlocks = [...document.querySelectorAll('.carto-ukraine-context-paragraph')] as Array<HTMLElement>
