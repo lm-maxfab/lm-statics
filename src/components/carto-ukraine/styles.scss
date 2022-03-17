@@ -11,15 +11,11 @@ html {
 
   .carto-ukraine-cover__image {
     height: 280px;
-    background-image: url({{PARENT_URL}}/assets/carte_entete_desktop.png);
+    background-image: url({{PARENT_URL}}/assets/carte_entete_mobile.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     margin-bottom: 16px;
-
-    @media screen and (max-width: 1190px) {
-      background-image: url({{PARENT_URL}}/assets/carte_entete_mobile.png);
-    }
   }
 
   .carto-ukraine-cover__text {
@@ -146,6 +142,7 @@ html {
   position: relative;
   border-top: 1px solid #E2E4E9;
   padding-top: 32px;
+  margin-top: 64px;
   
   &::before {
     content: " ";

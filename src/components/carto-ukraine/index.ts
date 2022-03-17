@@ -21,9 +21,9 @@ declare namespace LM {
     const dayObj = dayjs().year(year ?? '2022').month(month ?? '1').subtract(1, 'month').date(date ?? '1').hour(hour ?? '12').minute(minute ?? '0')
     let dateEnText = ''
     if (year === undefined || month === undefined || date === undefined) dateEnText = ''
-    else if (hour === undefined) dateEnText = dayObj.format('[Le] D MMM YYYY')
-    else if (minute === undefined) dateEnText = dayObj.format('[Le] D MMM YYYY [à] HH')
-    else dateEnText = dayObj.format('[Le] D MMM YYYY [à] HH[h]mm')
+    else if (hour === undefined) dateEnText = dayObj.format('[Publié le] D MMM YYYY')
+    else if (minute === undefined) dateEnText = dayObj.format('[Publié le] D MMM YYYY [à] HH')
+    else dateEnText = dayObj.format('[Publié le] D MMM YYYY [à] HH[h]mm')
     const dateFrText = dateEnText
       .replace('Jan', 'janvier')
       .replace('Feb', 'février')
@@ -64,6 +64,15 @@ declare namespace LM {
       ${propsNode?.outerHTML}
       <div class="carto-ukraine-cover__image"></div>
       <span class="carto-ukraine-cover__text">${props.text}</span>`
+
+    const parent = node.parentElement
+    if (parent?.tagName === 'DIV') {
+      const currentStyle = parent.getAttribute('style')
+      if (currentStyle === null) {
+        parent.style.width = '100%'
+      }
+    }
+    
   }
 
   const coverBlocks = [...document.querySelectorAll('.carto-ukraine-cover')] as Array<HTMLElement>
