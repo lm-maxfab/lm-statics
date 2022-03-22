@@ -69,7 +69,7 @@ declare namespace LM {
     if (parent?.tagName === 'DIV') {
       const currentStyle = parent.getAttribute('style')
       if (currentStyle === null) {
-        parent.style.width = '100%'
+        parent.style.width = '100vw'
       }
     }
     

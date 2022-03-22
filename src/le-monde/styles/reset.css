@@ -10,7 +10,6 @@
 body, html {
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
 }
 
 img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {
