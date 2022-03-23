@@ -1,9 +1,81 @@
+/* Global dependency */
 html {
   scroll-behavior: smooth !important;
 }
 
+html[data-color-mode="dark"] {
+  .carto-ukraine-cover {
+    background-color: #FFFFFF;
+  }
+
+  .carto-ukraine-head-paragraph {
+    .carto-ukraine-head-paragraph__title {
+      color: rgba(255, 255, 255, .85);
+    }
+    
+    .carto-ukraine-head-paragraph__text {
+      color: rgba(255, 255, 255, .7);
+    }
+  }
+
+  .carto-ukraine-context-paragraph {
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+
+    .carto-ukraine-context-paragraph__title {
+      color: rgba(255, 255, 255, .85);
+    }
+    
+    .carto-ukraine-context-paragraph__text {
+      color: rgba(255, 255, 255, .7);
+    }
+    
+    .carto-ukraine-context-paragraph__link {
+      color: #BE1514;
+    }
+  }
+
+  .carto-ukraine-useful-links {
+    .carto-ukraine-useful-links__title {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .carto-ukraine-useful-links__links {
+      .carto-ukraine-useful-links__link {
+        .carto-ukraine-useful-links__actual-link {
+          color: #4ab6ea;
+        }
+        
+        .carto-ukraine-useful-links__date {
+          color: rgba(255, 255, 255, .7);
+        }
+      }
+    }
+  }
+
+  .carto-ukraine-post-head {
+    border-top: 1px solid rgba(255, 255, 255, .2);
+
+    &::before {
+      background-color: rgba(255, 255, 255, .2);
+    }
+
+    .carto-ukraine-post-head__title {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .carto-ukraine-post-head__date {
+      color: rgba(255, 255, 255, .7);
+    }
+  }
+}
+
+.snippet-container {
+  overflow-y: hidden;
+}
+
+/* Safe zone */
 .carto-ukraine-cover {
-  background-color: #FFFFFF;
   padding: 32px 0;
   display: flex;
   flex-direction: column;
@@ -11,7 +83,7 @@ html {
 
   .carto-ukraine-cover__image {
     height: 280px;
-    background-image: url({{PARENT_URL}}/assets/carte_entete_mobile.png);
+    background-image: url({{PARENT_URL}}/assets/carte_entete.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

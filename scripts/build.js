@@ -10,6 +10,7 @@ import config from '../config.json' assert { type: 'json' }
 build ()
 
 async function build () {
+
   console.time('Built')
   const SRC = path.join(process.cwd(), 'src')
   const BUILDS = path.join(process.cwd(), 'builds')
@@ -56,6 +57,48 @@ async function build () {
 
     } finally {
       await fse.copy(SRC, BUILD)
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    *
+    * CREATE ALIASES
+    * 
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
+    for (const alias of Object.entries(buildData.aliases)) {
+      const [_to, _from] = alias
+      const from = path.join(BUILD, _from)
+      const to = path.join(BUILD, _to)
+      console.log('\n\nCreating alias')
+      console.log('from:', from)
+      console.log('to:  ', to)
+
+      try {
+        await fse.access(from)
+      } catch (err) {
+        console.error(`Could not create alias from ${from} because this path does not exist.`)
+        continue
+      }
+
+      try {
+        await fse.access(to)
+        console.error(`Could not create alias at ${to} because this path already exists.`)
+        continue
+      } catch (err) {
+
+      }
+
+      if (!isPathInScope(from, BUILD)) {
+        console.error(`Could not create alias from ${from} because this path is out of build scope.`)
+        continue
+      }
+
+      if (!isPathInScope(to, BUILD)) {
+        console.error(`Could not create alias at ${to} because this path is out of build scope.`)
+        continue
+      }
+      
+      await fse.copy(from, to)
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -153,48 +196,6 @@ async function build () {
         }
       }
     )
-
-    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    *
-    * ALIASES
-    * 
-    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
- 
-    for (const alias of Object.entries(buildData.aliases)) {
-      const [_to, _from] = alias
-      const from = path.join(BUILD, _from)
-      const to = path.join(BUILD, _to)
-      console.log('\n\nCreating alias')
-      console.log('from:', from)
-      console.log('to:  ', to)
-
-      try {
-        await fse.access(from)
-      } catch (err) {
-        console.error(`Could not create alias from ${from} because this path does not exist.`)
-        continue
-      }
-
-      try {
-        await fse.access(to)
-        console.error(`Could not create alias at ${to} because this path already exists.`)
-        continue
-      } catch (err) {
-
-      }
-
-      if (!isPathInScope(from, BUILD)) {
-        console.error(`Could not create alias from ${from} because this path is out of build scope.`)
-        continue
-      }
-
-      if (!isPathInScope(to, BUILD)) {
-        console.error(`Could not create alias at ${to} because this path is out of build scope.`)
-        continue
-      }
-      
-      await fse.copy(from, to)
-    }
   }
 
   console.log('')

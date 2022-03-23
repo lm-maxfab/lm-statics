@@ -5,14 +5,20 @@
   "builds": [{
     "name": "dev",
     "ROOT_URL": "http://localhost:3001",
-    "aliases": {}
+    "aliases": {
+      "/le-monde/styles/reset.scss": "/styles/reset.scss"
+    }
   }, {
     "name": "stg",
     "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics-stg",
-    "aliases": {}
+    "aliases": {
+      "/le-monde/styles/reset.scss": "/styles/reset.scss"
+    }
   }, {
     "name": "prod",
     "ROOT_URL": "https://assets-decodeurs.lemonde.fr/redacweb/statics",
-    "aliases": {}
+    "aliases": {
+      "/le-monde/styles/reset.scss": "/styles/reset.scss"
+    }
   }]
 }
