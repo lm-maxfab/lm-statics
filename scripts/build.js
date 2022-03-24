@@ -2,7 +2,9 @@ import fse from 'fs-extra'
 import path from 'path'
 import CleanCSS from 'clean-css'
 import { marked } from 'marked'
+import hljs from 'highlight.js'
 import { exec } from 'child_process'
+import { JSDOM } from 'jsdom'
 import sanitizeHtml from 'sanitize-html'
 import sass from 'sass'
 import config from '../config.json' assert { type: 'json' }
@@ -24,10 +26,14 @@ async function build () {
   try {
     await fse.access(BUILDS)
     await fse.rm(BUILDS, { recursive: true, force: true })
-    await fse.mkdir(BUILDS)
   } catch (err) {
     console.error('Something went wrong while accessing /builds directory')
-    throw err
+    try {
+      await fse.mkdir(BUILDS)
+    } catch (err) {
+      console.error('Something went wrong while creating /builds directory')
+      throw err
+    }
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -158,11 +164,36 @@ async function build () {
         // README.md => README.html
         if (fileData.basename === 'README.md') {
           const htmlMarkdownPath = path.join(fileData.path, '../README.html')
-          const htmlContent = marked.parse(fileData.content)
-          const sanitizedHtmlContent = sanitizeHtml(htmlContent, { USE_PROFILES: { html: true } })
+          const relPath = path.relative(BUILD, fileData.path)
+          const relPathArr = relPath.split('/')
+          const breadcrumb = relPathArr.map((chunk, pos) => {
+            const currRelPath = relPathArr.slice(0, pos + 1).join('/')
+            return `[${chunk}](${buildData.ROOT_URL}/${currRelPath})`
+          }).join('/') + '\n'
+          const htmlContent = marked.parse(breadcrumb + fileData.content, {
+            gfm: true,
+            highlight: (code, lang) => {
+              const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+              return hljs.highlight(code, { language }).value
+            },
+            langPrefix: 'hljs language-',
+            smartLists: true
+          })
+          const $htmlJsdom = new JSDOM(htmlContent)
+          $htmlJsdom.window.document.head.innerHTML += `
+            <style>
+              body { padding: 50px; font-family: "Marr-Sans"; }
+              h1 { font-family: "Marr-Sans-Condensed"; font-size: 3em; }
+              p { font-family: "The-Antiqua-B"; }
+            </style>
+            <link rel="stylesheet" href="${buildData.ROOT_URL}/styles/fonts.css">
+            <link rel="stylesheet" href="${buildData.ROOT_URL}/styles/variables.css">
+            <link rel="stylesheet" href="${buildData.ROOT_URL}/lib/highlightjs/v11.5.0/material-palenight.min.css">`
+          $htmlJsdom.window.document.body.classList.add('lm-page')
+          const newHtmlContent = $htmlJsdom.window.document.documentElement.outerHTML
           await fse.writeFile(
             htmlMarkdownPath,
-            sanitizedHtmlContent,
+            newHtmlContent,
             { encoding: 'utf-8' }
           )
         }

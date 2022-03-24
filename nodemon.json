@@ -1,7 +1,0 @@
-{
-  "ignore": [
-    "builds",
-    "node_modules"
-  ],
-  "ext": "js,jsx,ts,tsx,html,css,scss,md,json,jpg,jpeg,png,gif,webm,avif,svg"
-}

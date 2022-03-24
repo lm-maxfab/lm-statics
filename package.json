@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node --experimental-json-modules ./scripts/build.js",
-    "watch-build": "nodemon --experimental-json-modules ./scripts/build.js",
+    "watch-build": "nodemon -w src -e js,jsx,ts,tsx,html,css,scss,md,json,jpg,jpeg,png,gif,webm,avif,svg --experimental-json-modules ./scripts/build.js",
     "start-server:dev": "http-server builds/dev -p 3001 --cors",
     "start-server:stg": "http-server builds/stg -p 3001 --cors",
     "start-server:prod": "http-server builds/prod -p 3001 --cors",
@@ -21,7 +21,9 @@
     "clean-css": "^5.2.4",
     "concurrently": "^7.0.0",
     "fs-extra": "^10.0.1",
+    "highlight.js": "^11.5.0",
     "http-server": "^14.1.0",
+    "jsdom": "^19.0.0",
     "marked": "^4.0.12",
     "nodemon": "^2.0.15",
     "prompts": "^2.4.2",
