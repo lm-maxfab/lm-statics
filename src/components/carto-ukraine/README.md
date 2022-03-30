@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="{{PARENT_URL}}/styles.css">
 <script defer type="text/javascript" src="{{ROOT_URL}}/components/index.js"></script>
 <script defer type="text/javascript" src="{{ROOT_URL}}/lib/dayjs/v1.8.21/dayjs.1.8.21.min.js"></script>
+<script defer type="text/javascript" src="{{ROOT_URL}}/lib/index.js"></script>
 <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
 
 <!-- Cover -->

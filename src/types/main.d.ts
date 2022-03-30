@@ -13,22 +13,25 @@ declare namespace LM {
     env: string
   }
 
+  export type LMLibName = 'dayjs'|'OpenSeadragon'
+
   export interface Window extends RawWindow {
     LMV_COMPONENT?: {
       getPropsNode: (node: HTMLElement) => HTMLElement|null
       readProps: (node: HTMLElement) => ComponentProps|undefined
     }
 
-    LM_UTILS?: {
-      page_settings?: {
-        
-      }
-    }
-
     LM_APP?: {
       applyPageSettings?: (settings: LMAppPageSettings) => void
     }
 
+    LM_LIB?: {
+      scope: (libs: LMLibName|LMLibName[]) => void
+      dayjs?: any
+      OpenSeadragon?: any
+    }
+
     dayjs?: any
+    OpenSeadragon?: any
   }
 }

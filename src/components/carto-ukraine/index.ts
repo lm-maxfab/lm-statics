@@ -16,9 +16,18 @@ declare namespace LM {
    *
    * * * * * * * * * * * * * * * * * * * * */
   function rawDateToReadable (rawDate?: string) {
-    const { dayjs } = (window as LM.Window)
+    const lmWindow = window as LM.Window
+    const dayjs = lmWindow.dayjs ?? lmWindow.LM_LIB?.dayjs
+    if (dayjs === undefined) return
+
     const [year, month, date, hour, minute] = rawDate?.split('-') ?? []
-    const dayObj = dayjs().year(year ?? '2022').month(month ?? '1').subtract(1, 'month').date(date ?? '1').hour(hour ?? '12').minute(minute ?? '0')
+    const dayObj = dayjs()
+      .year(year ?? '2022')
+      .month(month ?? '1')
+      .subtract(1, 'month')
+      .date(date ?? '1')
+      .hour(hour ?? '12')
+      .minute(minute ?? '0')
     let dateEnText = ''
     if (year === undefined || month === undefined || date === undefined) dateEnText = ''
     else if (hour === undefined) dateEnText = dayObj.format('[Publié le] D MMM YYYY')

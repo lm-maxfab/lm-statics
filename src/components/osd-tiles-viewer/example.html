@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
+    <!-- Application -->
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/fonts.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/variables.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/components/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{PARENT_URL}}/styles.css">
+    <!-- For example page -->
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/fonts_last.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/multimedia.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/snippets.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/swg-button.css">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/header-footer.css">
+  </head>
+
+  <body>
+
+    <div style="max-width: 640px; margin: 0 auto;">
+
+      <div style="height: 15vh;"></div>
+
+      <div class="lmv-component osd-tiles-viewer">
+        <div class="lmv-component__props" style="display: none;">
+          <data title="prefix_url">{{ROOT_URL}}/lib/openseadragon/v3.0.0/images/</data>
+          <data title="type">zoomifytileservice</data>
+          <data title="total_width">17697</data>
+          <data title="total_height">17697</data>
+          <data title="tiles_url">http://localhost:3004/tiles/</data>
+          <data title="tile_size">256</data>
+          <data title="file_format">jpg</data>
+        </div>
+      </div>
+
+      <div style="height: 15vh;"></div>
+    
+    </div>
+
+    <!-- Application -->
+    <script defer type="text/javascript" src="{{ROOT_URL}}/lib/openseadragon/v3.0.0/openseadragon.min.js"></script>
+    <!-- <script defer type="text/javascript" src="{{ROOT_URL}}/lib/index.js"></script> -->
+    <script defer type="text/javascript" src="{{ROOT_URL}}/components/index.js"></script>
+    <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
+    <!-- For example page -->
+    <script defer type="text/javascript" src="{{ROOT_URL}}/utils/inject-fake-le-monde-page/index.js"></script>
+  </body>
+
+</html>
