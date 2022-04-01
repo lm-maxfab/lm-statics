@@ -33,7 +33,7 @@
       const unnamedDataChildren = [...node.querySelectorAll(':scope > data:not([title])')] as Array<HTMLElement>
       const namedDataChildren = [...node.querySelectorAll(':scope > data[title]:not([title=""])')] as Array<HTMLElement>
       const dataChildren = [...unnamedDataChildren, ...namedDataChildren]
-      if (dataChildren.length === 0) return node.innerText.trim()
+      if (dataChildren.length === 0) return node.innerHTML.trim()
       if (unnamedDataChildren.length !== 0) return unnamedDataChildren.map(node => parsePropNode(node))
       const namedProps: LM.ComponentProp = {}
       namedDataChildren.forEach(node => {

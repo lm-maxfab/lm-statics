@@ -13,7 +13,7 @@
 <script defer type="text/javascript" src="{{ROOT_URL}}/components/index.js"></script>
 <script defer type="text/javascript" src="{{PARENT_URL}}/index.js"></script>
 
-<!-- Cover -->
+<!-- Component -->
 <div class="lmv-component osd-tiles-viewer">
   <div class="lmv-component__props" style="display: none;">
     <data title="prefix_url">OSD assets root URL</data>
