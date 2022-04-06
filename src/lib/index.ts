@@ -19,6 +19,4 @@
     lmWindow.LM_LIB = { scope }
   }
 
-  lmWindow.LM_LIB.scope(['dayjs', 'OpenSeadragon'])
-
 })();
