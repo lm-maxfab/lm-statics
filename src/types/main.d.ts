@@ -2,10 +2,39 @@ type RawWindow = Window
 
 declare namespace LM {
   export type ComponentStringProp = string
-  export type ComponentObjectProp = { [key: string]: ComponentStringProp|ComponentObjectProp|ComponentArrayProp }
-  export type ComponentArrayProp = Array<ComponentStringProp|ComponentObjectProp|ComponentArrayProp>
-  export type ComponentProp = ComponentStringProp|ComponentObjectProp|ComponentArrayProp
-  export interface ComponentProps { [key: string]: ComponentProp }
+  export type ComponentNumberProp = number
+  export type ComponentBooleanProp = boolean
+  export type ComponentNullProp = null
+  
+  export type ComponentObjectProp = {
+    [key: string]:
+      ComponentStringProp
+      |ComponentNumberProp
+      |ComponentBooleanProp
+      |ComponentNullProp
+      |ComponentObjectProp
+      |ComponentArrayProp
+  }
+  
+  export type ComponentArrayProp = Array<
+    ComponentStringProp
+    |ComponentNumberProp
+    |ComponentBooleanProp
+    |ComponentNullProp
+    |ComponentObjectProp
+    |ComponentArrayProp
+  >
+  
+  export type ComponentProp = ComponentStringProp
+    |ComponentNumberProp
+    |ComponentBooleanProp
+    |ComponentNullProp
+    |ComponentObjectProp
+    |ComponentArrayProp
+  
+    export interface ComponentProps {
+    [key: string]: ComponentProp
+  }
 
   export interface LMAppPageSettings {
     layout: string
@@ -19,6 +48,7 @@ declare namespace LM {
     LMV_COMPONENT?: {
       getPropsNode: (node: HTMLElement) => HTMLElement|null
       readProps: (node: HTMLElement) => ComponentProps|undefined
+      generateId: (length?: number) => string
     }
 
     LM_APP?: {

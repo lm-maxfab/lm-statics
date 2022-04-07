@@ -1,0 +1,106 @@
+.lmv-stvimgtglr2 {
+  position: relative;
+
+  &.lmv-stvimgtglr2_disclosed {
+    .lmv-stvimgtglr2__image-slot .lmv-stvimgtglr2__hider {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 100ms, visibility 2ms 105ms;
+    }
+  }
+
+  .lmv-stvimgtglr2__hide-button,
+  .lmv-stvimgtglr2__show-button {
+    color: rgb(245, 246, 248);
+    font-family: var(--ff-marr-sans);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: rgb(245, 246, 248, .8);
+    border-width: 1px;
+    background-color: transparent;
+    transition: background-color 200ms, border-color 200ms;
+
+    &:hover {
+      background-color: rgb(2, 107, 156);
+      border-color: transparent;
+    }
+  }
+
+  .lmv-stvimgtglr2__image-slot {
+    position: relative;
+
+    .lmv-stvimgtglr2__image {
+      z-index: 1;
+      width: 100%;
+
+      &.lmv-stvimgtglr2__image_relative {
+        position: relative;
+      }
+
+      &.lmv-stvimgtglr2__image_absolute {
+        position: absolute;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .lmv-stvimgtglr2__hide-button {
+      position: absolute;
+      z-index: 2;
+      top: 16px;
+      right: 16px;
+    }
+
+    .lmv-stvimgtglr2__hider {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(43, 48, 58);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 2ms, opacity 100ms 5ms;
+
+      .lmv-stvimgtglr2__placeholder-text {
+        margin-bottom: 16px;
+        font-family: var(--ff-marr-sans);
+        font-size: 16px;
+        color: rgb(245, 246, 248);
+        margin-bottom: 20px !important;
+        max-width: 400px;
+        text-align: center;
+      }
+    }
+  }
+
+  .lmv-stvimgtglr2__text-slot {
+    margin-top: 8px;
+
+    .lmv-stvimgtglr2__legend {
+      font-family: var(--ff-marr-sans);
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 400;
+      color: rgb(113, 123, 142);
+    }
+
+    .lmv-stvimgtglr2__credits {
+      font-family: var(--ff-marr-sans);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: rgb(162, 169, 174);
+    }
+  }
+}
