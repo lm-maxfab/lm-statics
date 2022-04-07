@@ -1,3 +1,20 @@
+/// <reference path="../../types/main.d.ts" />
+
 ;(() => {
-  console.log('coucou.')
+  function selectNodesToInit () {
+
+  }
+
+  function selectInitedNodes () {
+
+  }
+
+  function selectAllNodes () {
+    
+  }
+  
+  function render (node: HTMLElement) {
+
+  }
+
 })();
