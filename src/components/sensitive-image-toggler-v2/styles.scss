@@ -1,4 +1,14 @@
+.multimedia-embed[data-color-mode=dark] {
+  .lmv-stvimgtglr2 {
+    --legend-color: rgb(255,255,255,.6);
+    --credits-color: rgb(255,255,255,.6);
+  }
+}
+
 .lmv-stvimgtglr2 {
+  --legend-color: rgb(113, 123, 142);
+  --credits-color: rgb(162, 169, 174);
+
   position: relative;
 
   &.lmv-stvimgtglr2_disclosed {
@@ -91,7 +101,7 @@
       font-size: 14px;
       line-height: 1.2;
       font-weight: 400;
-      color: rgb(113, 123, 142);
+      color: var(--legend-color);
     }
 
     .lmv-stvimgtglr2__credits {
@@ -100,7 +110,7 @@
       line-height: 1.4;
       font-weight: 400;
       text-transform: uppercase;
-      color: rgb(162, 169, 174);
+      color: var(--credits-color);
     }
   }
 }

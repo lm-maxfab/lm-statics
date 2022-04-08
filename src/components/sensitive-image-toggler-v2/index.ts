@@ -3,7 +3,10 @@
 ;(() => {
 
   const { LMV_COMPONENT } = (window as LM.Window)
-  if (LMV_COMPONENT === undefined) return
+  if (LMV_COMPONENT === undefined) {
+    console.warn('This components relies on a missing script: {{ROOT_URL}}/components/index.js')
+    return
+  }
 
   /* * * * * * * * * * * * * * * * * * * *
    *
