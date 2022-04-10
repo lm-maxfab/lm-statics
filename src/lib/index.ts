@@ -4,7 +4,7 @@
   const lmWindow = window as LM.Window
 
   if (lmWindow.LM_LIB === undefined) {
-    function scope (_libs: LM.LMLibName|LM.LMLibName[]) {
+    function scope (_libs: LM.LibName|LM.LibName[]) {
       const lmLib = lmWindow.LM_LIB
       if (lmLib === undefined) return
       const libs = (typeof _libs === 'string') ? [_libs] : [..._libs]
