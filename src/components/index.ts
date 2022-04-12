@@ -30,27 +30,28 @@
     return node.querySelector(':scope > .lmv-component__props') as HTMLElement|null
   }
 
-  function readComponentProps (node: HTMLElement): LM.ComponentProps|undefined {
+  function readComponentProps <P>(node: HTMLElement): LM.CompProps<P>|undefined {
     const propsNode = getComponentPropsNode(node)
     if (propsNode === null) return
 
     const topLevelFieldNodes = [...propsNode.querySelectorAll(':scope > data:not([title=""])')] as HTMLElement[]
-    const props: LM.ComponentProps = {}
+    const props: any = {}
 
     topLevelFieldNodes.forEach(node => {
       const key = node.getAttribute('title')
       if (key === null || key === '') return
       props[key] = parsePropNode(node)
     })
-    return props
+    const returned: LM.CompProps<P> = props
+    return returned
 
-    function parsePropNode (node: HTMLElement): LM.ComponentProp {
+    function parsePropNode (node: HTMLElement): LM.CompProp {
       const unnamedDataChildren = [...node.querySelectorAll(':scope > data:not([title])')] as HTMLElement[]
       const namedDataChildren = [...node.querySelectorAll(':scope > data[title]:not([title=""])')] as HTMLElement[]
       
       // If named data children are found, the node represents an object
       if (namedDataChildren.length !== 0) {
-        const namedProps: LM.ComponentProp = {}
+        const namedProps: LM.CompProp = {}
         namedDataChildren.forEach(node => {
           const key = node.getAttribute('title')
           if (key === null || key === undefined) return
@@ -84,13 +85,14 @@
    * COMPONENTS REGISTER
    * 
    * * * * * * * * * * * * * * * * * * * */
-  const register: LM.ComponentRegisterData[] = []
-  function queryRegisterById (id: LM.ComponentId) {
-    return register.find(elt => elt.id === id)
+  const register: LM.CompRegisterData<any, any, any>[] = []
+  function queryRegisterById (id: LM.CompId) {
+    const found = register.find(elt => elt.id === id)
+    return found
   }
 
-  function registerComponent (componentData: any) {
-    const foundInRegister = queryRegisterById(componentData.id)
+  function registerComponent <P, S, V>(componentData: LM.CompRegisterData<P, S, V>) {
+    const foundInRegister: LM.CompRegisterData<P, S, V>|undefined = queryRegisterById(componentData.id)
     if (foundInRegister !== undefined) {
       // What to do with already inited ?
       console.warn('Component with this id has already been initialized.')
@@ -104,38 +106,45 @@
    * STATE & VALUES SETTERS
    * 
    * * * * * * * * * * * * * * * * * * * */
-  async function setState (id: LM.ComponentId, stateSetter: LM.ComponentStateSetter) {
+  async function setState <S>(id: LM.CompId, stateSetter: LM.CompStateSetter<S>) {
     const componentData = queryRegisterById(id)
     if (componentData === undefined) return
-    const prevState = componentData.state
+    const prevState: LM.CompProps<S>|undefined = componentData.state
     if (typeof stateSetter === 'function') {
-      const state = stateSetter({ ...prevState })
+      const state = prevState !== undefined
+        ? stateSetter({ ...prevState })
+        : stateSetter(undefined)
       if (state === null) return
       componentData.state = state
       await render(id)
       return { prevState, state }
     } else {
-      const state = { ...(prevState ?? {}), ...stateSetter }
-      componentData.state = state
+      const state = prevState !== undefined
+        ? { ...(prevState ?? {}), ...stateSetter }
+        : { ...stateSetter }
+      componentData.state = state as LM.CompProps<S>
       await render(id)
       return { prevState, state }
     }
   }
 
-  function setValues (id: LM.ComponentId, valuesSetter: LM.ComponentValuesSetter) {
+  function setValues <V>(id: LM.CompId, valuesSetter: LM.CompValuesSetter<V>) {
     const componentData = queryRegisterById(id)
     if (componentData === undefined) return
-    const prevValues = componentData.values
+    const prevValues: LM.CompProps<V>|undefined = componentData.values
     if (typeof valuesSetter === 'function') {
-      const values = valuesSetter({ ...prevValues })
+      const values = prevValues !== undefined
+        ? valuesSetter({ ...prevValues })
+        : valuesSetter(undefined)
       if (values === null) return
       componentData.values = values
       return { prevValues, values }
     } else {
-      componentData.values = {
-        ...(prevValues ?? {}),
-        ...valuesSetter
-      }
+      const values = prevValues !== undefined
+        ? { ...(prevValues ?? {}), ...valuesSetter }
+        : { ...valuesSetter }
+      componentData.values = values as LM.CompProps<V>
+      return { prevValues, values }
     }
   }
 
@@ -145,12 +154,12 @@
    * 
    * * * * * * * * * * * * * * * * * * * */
 
-  function render (id: LM.ComponentId) {
+  function render <P, S, V>(id: LM.CompId) {
     return new Promise((resolve, reject) => {
       const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
       if (node === null) return reject(`Could not find node with data-lmv-id === ${id}`)
 
-      const componentData = queryRegisterById(id)
+      const componentData: LM.CompRegisterData<P, S, V> | undefined = queryRegisterById(id)
       if (componentData === undefined) return reject(`Component node seems to have been initialized but cannot be found in components register.`)
 
       const {
@@ -162,8 +171,9 @@
         props: componentData.props,
         state: componentData.state,
         values: componentData.values,
-        setState: (stateSetter: LM.ComponentStateSetter) => setState(id, stateSetter),
-        setValues: (valuesSetter: LM.ComponentValuesSetter) => setValues(id, valuesSetter)
+        setState: (stateSetter: LM.CompStateSetter<S>) => setState(id, stateSetter),
+        setValues: (valuesSetter: LM.CompValuesSetter<V>) => setValues(id, valuesSetter),
+        getNode: () => document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
       })
 
       const newWrapperClasses = [
@@ -173,7 +183,7 @@
       ].join(' ')
 
       let classesAreSet = false
-      let innerHTMLIsSet = false
+      let innerHTMLIsSet = innerDomString === null
 
       const observer = new MutationObserver((mutations, observer) => {
         const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
@@ -184,7 +194,7 @@
         }
         if (classesAreSet && innerHTMLIsSet) {
           observer.disconnect()
-          listeners.forEach(listener => {
+          if (innerDomString !== null) listeners.forEach(listener => {
             const { selector, eventType, handler } = listener
             const target = node.querySelector(selector)
             if (target === null) return
@@ -199,7 +209,7 @@
         attributeFilter: ['class']
       })
 
-      node.innerHTML = innerDomString
+      if (innerDomString !== null) node.innerHTML = innerDomString
       node.setAttribute('class', newWrapperClasses)
     })
   }
@@ -210,7 +220,7 @@
    * 
    * * * * * * * * * * * * * * * * * * * */
 
-  async function init (node: HTMLElement, renderer: LM.ComponentRenderer): Promise<string|undefined> {
+  async function init (node: HTMLElement, renderer: LM.CompRenderer): Promise<string|undefined> {
     return new Promise((resolve, reject) => {
       const idAttribute = node.getAttribute('data-lmv-id') ?? ''
       const componentData = queryRegisterById(idAttribute)
@@ -222,7 +232,7 @@
       let attributeIsSet = false
       let innerHTMLIsSet = false
       const observer = new MutationObserver(async (mutations, observer) => {
-        const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
+        const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`) as HTMLElement
         if (node === null) return reject(`Could not find node with data-lmv-id === ${id}`)
         for (const mut of mutations) {
           if (mut.type === 'attributes') { attributeIsSet = true }
@@ -246,7 +256,7 @@
     })
   }
 
-  async function initAll (selector: string, renderer: LM.ComponentRenderer): Promise<Array<string|undefined>> {
+  async function initAll (selector: string, renderer: LM.CompRenderer): Promise<Array<string|undefined>> {
     const nodes = selectNodes(selector, { initialized: false })
     const results = []
     for (const node of nodes) {
@@ -261,7 +271,7 @@
    * PUBLIC: SELECT NODES
    * 
    * * * * * * * * * * * * * * * * * * * */
-  function selectNodes (selector: string, options?: LM.ComponentSelectNodesOptions): HTMLElement[] {
+  function selectNodes (selector: string, options?: LM.CompSelectNodesOptions): HTMLElement[] {
     const allNodes = [...document.querySelectorAll(`.lmv-component${selector}`)] as HTMLElement[]
     if (options === undefined) return allNodes
 
@@ -274,6 +284,7 @@
       if (foundInRegister) return false
       return true
     })
+
     if (options.initialized === true) return allNodes.filter(node => {
       const nodeId = node.getAttribute('data-lmv-id')
       if (nodeId === null || nodeId === '') return false
@@ -281,6 +292,7 @@
       if (foundInRegister) return true
       return false
     })
+
     return allNodes
   }
   

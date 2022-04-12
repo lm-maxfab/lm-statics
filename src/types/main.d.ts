@@ -1,78 +1,82 @@
 type RawWindow = Window
 
 declare namespace LM {
-  export type ComponentId = string
+  export type CompId = string
 
-  export type ComponentStringProp = string
-  export type ComponentNumberProp = number
-  export type ComponentBooleanProp = boolean
-  export type ComponentNullProp = null
+  export type CompStringProp = string
+  export type CompNumberProp = number
+  export type CompBooleanProp = boolean
+  export type CompNullProp = null
 
-  export type ComponentObjectProp = { [key: string]: ComponentStringProp|ComponentNumberProp|ComponentBooleanProp|ComponentNullProp|ComponentObjectProp|ComponentArrayProp }
-  export type ComponentArrayProp = Array<ComponentStringProp|ComponentNumberProp|ComponentBooleanProp|ComponentNullProp|ComponentObjectProp|ComponentArrayProp>
+  export type CompObjectProp = { [key: string]: CompStringProp|CompNumberProp|CompBooleanProp|CompNullProp|CompObjectProp|CompArrayProp }
+  export type CompArrayProp = Array<CompStringProp|CompNumberProp|CompBooleanProp|CompNullProp|CompObjectProp|CompArrayProp>
 
-  export type ComponentProp = ComponentStringProp|ComponentNumberProp|ComponentBooleanProp|ComponentNullProp|ComponentObjectProp|ComponentArrayProp
+  export type CompProp = CompStringProp|CompNumberProp|CompBooleanProp|CompNullProp|CompObjectProp|CompArrayProp
 
-  export interface ComponentProps { [key: string]: ComponentProp }
-  export type ComponentState = ComponentProps
-  export type ComponentValues = ComponentProps
+  export type CompProps<P> = { [K in keyof P]: CompProp }
+  export type CompState<S> = CompProps<S>
+  export type CompValues<V> = CompProps<V>
 
-  export type ComponentStateSetterFunction = (prevState: ComponentState) => ComponentState|null
-  export type ComponentValuesSetterFunction = (prevValues: ComponentValues) => ComponentValues|null
+  export type CompStateUpdate<S> = { [K in keyof S]?: CompProp }
+  export type CompValuesUpdate<V> = { [K in keyof V]?: CompProp }
+
+  export type CompStateSetterFunction<S> = (prevState: CompState<S>|undefined) => CompState<S>|null
+  export type CompValuesSetterFunction<V> = (prevValues: CompValues<V>|undefined) => CompValues<V>|null
   
-  export type ComponentStateSetter = ComponentState|ComponentStateSetterFunction
-  export type ComponentValuesSetter = ComponentValues|ComponentValuesSetterFunction
+  export type CompStateSetter<S> = CompStateUpdate<S>|CompStateSetterFunction<S>
+  export type CompValuesSetter<V> = CompValuesUpdate<V>|CompValuesSetterFunction<V>
 
-  export interface ComponentRegisterData {
+  export interface CompRegisterData<P, S, V> {
     id: string
     node: HTMLElement
-    props?: ComponentProps
-    state?: ComponentState
-    values?: ComponentValues
-    renderer: ComponentRenderer
+    props?: CompProps<P>
+    state?: CompState<S>
+    values?: CompValues<V>
+    renderer: CompRenderer
   }
 
-  export type ComponentSetStateFunction = (id: ComponentId, stateSetter: ComponentStateSetter) => void
-  export type ComponentSetValuesFunction = (id: ComponentId, valuesSetter: ComponentValuesSetter) => void
+  export type CompSetStateFunction<S> = (id: CompId, stateSetter: CompStateSetter<S>) => void
+  export type CompSetValuesFunction<V> = (id: CompId, valuesSetter: CompValuesSetter<V>) => void
 
-  export interface ComponentRendererArgs {
-    props?: ComponentRegisterData['props']
-    state?: ComponentRegisterData['state']
-    values?: ComponentRegisterData['values']
-    setState: (setter: ComponentStateSetter) => ReturnType<ComponentSetStateFunction>
-    setValues: (setter: ComponentValuesSetter) => ReturnType<ComponentSetValuesFunction>
+  export interface CompRendererArgs<P, S, V> {
+    props: CompRegisterData<P, S, V>['props']
+    state: CompRegisterData<P, S, V>['state']
+    values: CompRegisterData<P, S, V>['values']
+    setState: (setter: CompStateSetter<S>) => ReturnType<CompSetStateFunction<S>>
+    setValues: (setter: CompValuesSetter<V>) => ReturnType<CompSetValuesFunction<V>>
+    getNode: () => HTMLElement|null
   }
-  export interface ComponentRendererListenerDescriptor {
+  export interface CompRendererListenerDescriptor {
     selector: string
     eventType: Event['type']
     handler: (e: Event) => void
   }
-  export interface ComponentRendererReturnValue {
+  export interface CompRendererReturnValue {
     mainClass: string,
     classModifiers: string[],
-    innerDomString: string,
-    listeners: Array<ComponentRendererListenerDescriptor>
+    innerDomString: string|null,
+    listeners: Array<CompRendererListenerDescriptor>
   }
-  export type ComponentRenderer = (args: ComponentRendererArgs) => ComponentRendererReturnValue
+  export type CompRenderer = <P, S, V>(args: CompRendererArgs<P, S, V>) => CompRendererReturnValue
 
-  export type ComponentIniter = (node: HTMLElement, renderer: ComponentRenderer) => Promise<string|undefined>
-  export type ComponentInitAll = (selector: string, renderer: ComponentRenderer) => Promise<Array<string|undefined>>
-  export interface ComponentSelectNodesOptions {
+  export type CompIniter = <P, S, V>(node: HTMLElement, renderer: CompRenderer<P, S, V>) => Promise<string|undefined>
+  export type CompInitAll = <P, S, V>(selector: string, renderer: CompRenderer<P, S, V>) => Promise<Array<string|undefined>>
+  export interface CompSelectNodesOptions {
     initialized?: true|false
   }
-  export type ComponentSelectNodes = (selector: string, options?: ComponentSelectNodesOptions) => HTMLElement[]
+  export type CompSelectNodes = (selector: string, options?: CompSelectNodesOptions) => HTMLElement[]
 
   export type LibName = 'dayjs'|'OpenSeadragon'
 
   export interface Window extends RawWindow {
     LMV_COMPONENT?: {
-      init: ComponentIniter
-      initAll: ComponentInitAll
-      selectNodes: ComponentSelectNodes
+      init: CompIniter
+      initAll: CompInitAll
+      selectNodes: CompSelectNodes
 
       // Deprecated
       getPropsNode: (node: HTMLElement) => HTMLElement|null
-      readProps: (node: HTMLElement) => ComponentProps|undefined
+      readProps: (node: HTMLElement) => CompProps<any>|undefined
       generateId: (length?: number) => string
     }
 
