@@ -32,7 +32,7 @@ declare namespace LM {
     props?: CompProps<P>
     state?: CompState<S>
     values?: CompValues<V>
-    renderer: CompRenderer
+    renderer: CompRenderer<P, S, V>
   }
 
   export type CompSetStateFunction<S> = (id: CompId, stateSetter: CompStateSetter<S>) => void
@@ -57,7 +57,7 @@ declare namespace LM {
     innerDomString: string|null,
     listeners: Array<CompRendererListenerDescriptor>
   }
-  export type CompRenderer = <P, S, V>(args: CompRendererArgs<P, S, V>) => CompRendererReturnValue
+  export type CompRenderer<P, S, V> = (args: CompRendererArgs<P, S, V>) => CompRendererReturnValue
 
   export type CompIniter = <P, S, V>(node: HTMLElement, renderer: CompRenderer<P, S, V>) => Promise<string|undefined>
   export type CompInitAll = <P, S, V>(selector: string, renderer: CompRenderer<P, S, V>) => Promise<Array<string|undefined>>

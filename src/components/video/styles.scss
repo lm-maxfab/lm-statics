@@ -11,63 +11,118 @@
 
   position: relative;
 
-  .lmv-video__video-slot {
-    .lmv-video__video {
-      position: relative;
-      z-index: 1;
+  .lmv-video__video {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+  }
+
+  /* Sound button */
+  .lmv-video__sound-button {
+    display: none;
+  }
+
+  &.lmv-video_with-sound-controls {
+    .lmv-video__sound-button {
       display: block;
     }
+  }
 
-    .lmv-video__sound-button {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      right: 0;
-      width: 24px;
-      height: 24px;
-      background-color: sandybrown;
+  .lmv-video__sound-button {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background-color: sandybrown;
+  }
+
+  /* Controls bar */
+  &.lmv-video_with-fullscreen-controls
+  .lmv-video__controls-bottom-bar {
+    justify-content: flex-end;
+  }
+
+  &.lmv-video_with-play-controls.lmv-video_with-fullscreen-controls
+  .lmv-video__controls-bottom-bar {
+    justify-content: space-between;
+  }
+
+  .lmv-video__controls-bottom-bar {
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+  }
+
+  /* Play pause buttons */
+  .lmv-video__play-pause-button {
+    display: none;
+  }
+
+  &.lmv-video_with-play-controls {
+    .lmv-video__play-pause-button {
+      display: block;
     }
+  }
 
-    .lmv-video__controls-bottom-bar {
-      position: absolute;
-      z-index: 3;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
+  .lmv-video__play-pause-button {
+    background-color: lawngreen;
+    width: 24px;
+    height: 24px;
+  }
 
-      .lmv-video__play-pause-button {
-        background-color: lawngreen;
-        width: 24px;
-        height: 24px;
-      }
+  /* Timeline */
+  .lmv-video__timeline {
+    display: none;
+  }
 
-      .lmv-video__timeline {
-        background-color: peru;
-        flex-grow: 1;
-      }
-
-      .lmv-video__fullscreen-button {
-        background-color: plum;
-        width: 24px;
-        height: 24px;
-      }
+  &.lmv-video_with-timeline {
+    .lmv-video__timeline {
+      display: block;
     }
-      // position: absolute;
-      // top: 0;
-      // left: 0;
-      // width: 100%;
-      // height: 100%;
-      // background-color: lavender;
-      // z-index: 2;
+  }
 
-    .lmv-video__text-overlay {
-      position: absolute;
-      z-index: 4;
-      top: 0;
-      left: 0;
-      background-color: coral;
+  .lmv-video__timeline {
+    background-color: peru;
+    flex-grow: 1;
+    height: 24px;
+  }
+
+  .lmv-video__timeline-progress-bar {
+    background-color: red;
+    height: 100%;
+    width: 0%;
+  }
+
+  /* Fullscreen */
+  .lmv-video__fullscreen-button {
+    display: none;
+  }
+
+  &.lmv-video_with-fullscreen-controls {
+    .lmv-video__fullscreen-button {
+      display: block;
     }
+  }
+
+  .lmv-video__fullscreen-button {
+    background-color: plum;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Title, kicker, legend and credits */
+  .lmv-video__text-overlay {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    background-color: coral;
   }
 
   .lmv-video__legend {

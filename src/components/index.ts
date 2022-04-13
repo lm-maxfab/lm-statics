@@ -66,7 +66,7 @@
       }
 
       // If no data children are found, the node represents a raw value
-      const nodeType = node.dataset.type
+      const nodeType = node.getAttribute('data-lmv-datatype')
       const rawNodeValue = node.innerHTML.trim()
       let nodeValue: string|number|boolean|null = rawNodeValue
       if (nodeType === 'number') nodeValue = parseFloat(rawNodeValue)
@@ -220,7 +220,7 @@
    * 
    * * * * * * * * * * * * * * * * * * * */
 
-  async function init (node: HTMLElement, renderer: LM.CompRenderer): Promise<string|undefined> {
+  async function init (node: HTMLElement, renderer: LM.CompRenderer<any, any, any>): Promise<string|undefined> {
     return new Promise((resolve, reject) => {
       const idAttribute = node.getAttribute('data-lmv-id') ?? ''
       const componentData = queryRegisterById(idAttribute)
@@ -256,7 +256,7 @@
     })
   }
 
-  async function initAll (selector: string, renderer: LM.CompRenderer): Promise<Array<string|undefined>> {
+  async function initAll (selector: string, renderer: LM.CompRenderer<any, any, any>): Promise<Array<string|undefined>> {
     const nodes = selectNodes(selector, { initialized: false })
     const results = []
     for (const node of nodes) {
