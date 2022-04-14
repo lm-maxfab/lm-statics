@@ -86,13 +86,13 @@
    * 
    * * * * * * * * * * * * * * * * * * * */
   const register: LM.CompRegisterData<any, any, any>[] = []
-  function queryRegisterById (id: LM.CompId) {
-    const found = register.find(elt => elt.id === id)
+  function queryRegisterById <P, S, V>(id: LM.CompId) {
+    const found = register.find(elt => elt.id === id) as LM.CompRegisterData<P, S, V>|undefined
     return found
   }
 
   function registerComponent <P, S, V>(componentData: LM.CompRegisterData<P, S, V>) {
-    const foundInRegister: LM.CompRegisterData<P, S, V>|undefined = queryRegisterById(componentData.id)
+    const foundInRegister: LM.CompRegisterData<P, S, V>|undefined = queryRegisterById<P, S, V>(componentData.id)
     if (foundInRegister !== undefined) {
       // What to do with already inited ?
       console.warn('Component with this id has already been initialized.')
@@ -107,7 +107,7 @@
    * 
    * * * * * * * * * * * * * * * * * * * */
   async function setState <S>(id: LM.CompId, stateSetter: LM.CompStateSetter<S>) {
-    const componentData = queryRegisterById(id)
+    const componentData = queryRegisterById<any, S, any>(id)
     if (componentData === undefined) return
     const prevState: LM.CompProps<S>|undefined = componentData.state
     if (typeof stateSetter === 'function') {
@@ -129,7 +129,7 @@
   }
 
   function setValues <V>(id: LM.CompId, valuesSetter: LM.CompValuesSetter<V>) {
-    const componentData = queryRegisterById(id)
+    const componentData = queryRegisterById<any, any, V>(id)
     if (componentData === undefined) return
     const prevValues: LM.CompProps<V>|undefined = componentData.values
     if (typeof valuesSetter === 'function') {
@@ -159,13 +159,14 @@
       const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
       if (node === null) return reject(`Could not find node with data-lmv-id === ${id}`)
 
-      const componentData: LM.CompRegisterData<P, S, V> | undefined = queryRegisterById(id)
+      const componentData: LM.CompRegisterData<P, S, V> | undefined = queryRegisterById<P, S, V>(id)
       if (componentData === undefined) return reject(`Component node seems to have been initialized but cannot be found in components register.`)
 
       const {
         mainClass,
         classModifiers,
         innerDomString,
+        afterRender,
         listeners
       } = componentData.renderer({
         props: componentData.props,
@@ -183,7 +184,7 @@
       ].join(' ')
 
       let classesAreSet = false
-      let innerHTMLIsSet = innerDomString === null
+      let innerHTMLIsSet = (innerDomString === null)
 
       const observer = new MutationObserver((mutations, observer) => {
         const node = document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
@@ -194,6 +195,15 @@
         }
         if (classesAreSet && innerHTMLIsSet) {
           observer.disconnect()
+          if (afterRender !== undefined && innerDomString !== null) afterRender({
+            props: componentData.props,
+            state: componentData.state,
+            values: componentData.values,
+            getProps: () => queryRegisterById<P, S, V>(id)?.props,
+            getState: () => queryRegisterById<P, S, V>(id)?.state,
+            getValues: () => queryRegisterById<P, S, V>(id)?.values,
+            getNode: () => document.querySelector(`.lmv-component[data-lmv-id="${id}"]`)
+          })
           if (innerDomString !== null) listeners.forEach(listener => {
             const { selector, eventType, handler } = listener
             const target = node.querySelector(selector)

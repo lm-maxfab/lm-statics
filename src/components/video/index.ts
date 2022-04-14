@@ -1,51 +1,27 @@
 /// <reference path="../../types/main.d.ts" />
 
-/*
-
-PROPS
-- autoplay: 'load'|'screen'|'false'
-- muted: true|false
-- sou
-- soundControls
-- timeline
-
-
-- sensitive_content
-
-
-- source
-- title
-- kicker
-- legend
-- credits
-
-*/
-
 interface Props {
-  source?: string //
-  title?: string //
-  kicker?: string //
-  legend?: string //
-  credits?: string //
-
-  loop?: boolean //
-
-  autoplay?: boolean 
-  autoplay_trigger?: 'loaded'|'visible'
-
-  sound?: boolean //
-  sound_controls?: boolean //
-
+  source?: string
+  title?: string
+  kicker?: string
+  legend?: string
+  credits?: string
+  loop?: boolean
+  autoplay?: boolean
+  sound?: boolean
+  sound_controls?: boolean
   play_controls?: boolean
-
   time_controls?: boolean
   fullscreen_controls?: boolean
   sensitive_content?: boolean
+  disclaimer_text?: string
+  disclaimer_button?: string
 }
 
 interface State {
   is_playing: boolean
   is_muted: boolean
+  is_disclosed: boolean
 }
 
 interface Values {
@@ -81,8 +57,7 @@ interface Values {
    * * * * * * * * * * * * * * * * * * */
   LMV_COMPONENT.initAll(`.${c}`, renderer)
 
-
-  function renderer (args: LM.CompRendererArgs<Props, State, Values>): LM.CompRendererReturnValue {
+  function renderer (args: LM.CompRendererArgs<Props, State, Values>): LM.CompRendererReturnValue<Props, State, Values> {
     const { props: _props, state, setState, values, setValues, getNode } = args
     const props = _props ?? {}
 
@@ -124,12 +99,52 @@ interface Values {
           <div class="${c}__title">${props.title}</div>
           <div class="${c}__kicker">${props.kicker}</div>
         </div>
+        <div class="${c}__sensitive-content-overlay">
+          <div class="${c}__disclaimer">${props.disclaimer_text}</div>
+          <button class="${c}__discloser">${props.disclaimer_button}</button>
+        </div>
       </div>
       <div class="${c}__info">
         <span class="${c}__legend">${props.legend}&nbsp;</span>
         <span class="${c}__credits">${props.credits}</span>
       </div>
     `
+
+    /* * * * * * * * * * * * * * * * * * *
+     *
+     * AFTER RENDER
+     *
+     * * * * * * * * * * * * * * * * * * */
+    const afterRender: LM.CompAfterRenderer<Props, State, Values> = ({
+      getProps,
+      getState,
+      getNode
+    }) => {
+      const props = getProps()
+      if (props?.autoplay !== true) return
+      
+      const node = getNode()
+      const $video = node?.querySelector(`.${c}__video`) as HTMLVideoElement|null|undefined
+      if ($video === undefined || $video === null) return
+      
+      const options = { threshold: .3 }
+      const observer = new IntersectionObserver((entries, observer) => {
+        const entry = entries[0]
+        if (entry === undefined) return
+        if (entry.isIntersecting) {
+          const props = getProps()
+          const state = getState()
+          if (props?.sensitive_content) {
+            if (state?.is_disclosed) (entry.target as HTMLVideoElement).play()
+          } else {
+            (entry.target as HTMLVideoElement).play()
+          }
+        } else {
+          (entry.target as HTMLVideoElement).pause()
+        }
+      }, options)
+      observer.observe($video)
+    }
 
     /* * * * * * * * * * * * * * * * * * *
      *
@@ -212,12 +227,21 @@ interface Values {
       }
     }
 
+    const discloserClickListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__discloser`,
+      eventType: 'click',
+      handler: () => {
+        setState({ is_disclosed: true })
+      }
+    }
+
     const listeners = [
       playPauseClickListener,
       muteClickListener,
       videoTimeupdateListener,
       videoEndedListener,
-      timelineClickListener
+      timelineClickListener,
+      discloserClickListener
     ]
 
     /* * * * * * * * * * * * * * * * * * *
@@ -232,6 +256,8 @@ interface Values {
     if (props.play_controls) classModifiers.push('with-play-controls')
     if (props.time_controls) classModifiers.push('with-timeline')
     if (props.fullscreen_controls) classModifiers.push('with-fullscreen-controls')
+    if (props.sensitive_content) classModifiers.push('sensitive')
+    if (state?.is_disclosed) classModifiers.push('disclosed')
 
     /* * * * * * * * * * * * * * * * * * *
      *
@@ -242,7 +268,8 @@ interface Values {
       mainClass: c,
       innerDomString,
       listeners,
-      classModifiers
+      classModifiers,
+      afterRender
     }
   }
 

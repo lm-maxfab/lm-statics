@@ -51,13 +51,24 @@ declare namespace LM {
     eventType: Event['type']
     handler: (e: Event) => void
   }
-  export interface CompRendererReturnValue {
-    mainClass: string,
-    classModifiers: string[],
-    innerDomString: string|null,
-    listeners: Array<CompRendererListenerDescriptor>
+  export interface CompAfterRendererArgs<P, S, V> {
+    props: CompRegisterData<P, S, V>['props'],
+    state: CompRegisterData<P, S, V>['state'],
+    values: CompRegisterData<P, S, V>['values'],
+    getProps: () => CompRegisterData<P, S, V>['props']|undefined,
+    getState: () => CompRegisterData<P, S, V>['state']|undefined,
+    getValues: () => CompRegisterData<P, S, V>['values']|undefined,
+    getNode: () => HTMLElement|null
   }
-  export type CompRenderer<P, S, V> = (args: CompRendererArgs<P, S, V>) => CompRendererReturnValue
+  export type CompAfterRenderer<P, S, V> = (args: CompAfterRendererArgs<P, S, V>) => void
+  export interface CompRendererReturnValue<P, S, V> {
+    mainClass: string
+    classModifiers: string[]
+    innerDomString: string|null
+    listeners: Array<CompRendererListenerDescriptor>
+    afterRender?: CompAfterRenderer<P, S, V>
+  }
+  export type CompRenderer<P, S, V> = (args: CompRendererArgs<P, S, V>) => CompRendererReturnValue<P, S, V>
 
   export type CompIniter = <P, S, V>(node: HTMLElement, renderer: CompRenderer<P, S, V>) => Promise<string|undefined>
   export type CompInitAll = <P, S, V>(selector: string, renderer: CompRenderer<P, S, V>) => Promise<Array<string|undefined>>
