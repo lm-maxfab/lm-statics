@@ -11,6 +11,40 @@
 
   position: relative;
 
+  svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 3px rgb(0, 0, 0, .4));
+
+    .bg {
+      fill: transparent;
+    }
+
+    .fill-1 {
+      fill: white;
+    }
+  }
+
+  &.lmv-video_playing {
+    .lmv-video__sound-button,
+    .lmv-video__controls-bottom-bar,
+    .lmv-video__text-overlay {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 500ms, visibility 2ms 505ms;
+    }
+
+    &:hover {
+      .lmv-video__sound-button,
+      .lmv-video__controls-bottom-bar,
+      .lmv-video__text-overlay {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 500ms 5ms, visibility 2ms;
+      }
+    }
+  }
+
   .lmv-video__video-slot {
     position: relative;
   }
@@ -36,11 +70,11 @@
   .lmv-video__sound-button {
     position: absolute;
     z-index: 2;
-    top: 0;
-    right: 0;
+    top: 8px;
+    right: 8px;
     width: 24px;
     height: 24px;
-    background-color: sandybrown;
+    cursor: pointer;
   }
 
   /* Controls bar */
@@ -57,10 +91,11 @@
   .lmv-video__controls-bottom-bar {
     position: absolute;
     z-index: 3;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
     display: flex;
+    align-items: center;
   }
 
   /* Play pause buttons */
@@ -75,9 +110,10 @@
   }
 
   .lmv-video__play-pause-button {
-    background-color: lawngreen;
     width: 24px;
     height: 24px;
+    margin-right: 8px;
+    cursor: pointer;
   }
 
   /* Timeline */
@@ -92,15 +128,19 @@
   }
 
   .lmv-video__timeline {
-    background-color: peru;
+    background-color: rgb(0, 0, 0, .3);
     flex-grow: 1;
-    height: 24px;
+    height: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
   }
 
   .lmv-video__timeline-progress-bar {
-    background-color: red;
+    background-color: white;
     height: 100%;
     width: 0%;
+    transition: width 50ms;
   }
 
   /* Fullscreen */
@@ -108,24 +148,24 @@
     display: none;
   }
 
-  &.lmv-video_with-fullscreen-controls {
-    .lmv-video__fullscreen-button {
-      display: block;
-    }
-  }
+  // &.lmv-video_with-fullscreen-controls {
+  //   .lmv-video__fullscreen-button {
+  //     display: block;
+  //   }
+  // }
 
   .lmv-video__fullscreen-button {
-    background-color: plum;
     width: 24px;
     height: 24px;
+    cursor: pointer;
   }
 
   /* Title, kicker, legend and credits */
   .lmv-video__text-overlay {
     position: absolute;
     z-index: 4;
-    top: 0;
-    left: 0;
+    top: 8px;
+    left: 8px;
   }
 
   .lmv-video__title {
@@ -133,16 +173,8 @@
     font-size: 22px;
     line-height: 1.2;
     font-weight: 600;
-    color: black;
-    text-shadow:
-      -1px 0 0 white,
-      -.71px -.71px 0 white,
-      0 -1px 0 white,
-      .71px -.71px 0 white,
-      1px 0 0 white,
-      .71px .71px 0 white,
-      0 1px 0 white,
-      -.71px .71px 0 white;
+    color: white;
+    text-shadow: 0 0 3px rgb(0, 0, 0, .3);
   }
 
   .lmv-video__kicker {
@@ -150,7 +182,12 @@
     font-size: 14px;
     line-height: 1.4;
     font-weight: 400;
-    color: black;
+    color: white;
+    text-shadow: 0 0 3px rgb(0, 0, 0, .3);
+  }
+
+  .lmv-video__info {
+    margin-top: 4px;
   }
 
   .lmv-video__legend {

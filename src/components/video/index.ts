@@ -50,6 +50,11 @@ interface Values {
 
   const c = 'lmv-video'
 
+  const loudIconDom = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" class="bg" /><path fill-rule="evenodd" clip-rule="evenodd" class="fill-1" d="M10 8L14 5V19L10 16H7V8H10ZM18 12C18 13.4806 17.1956 14.7732 16 15.4649V8.53513C17.1956 9.22674 18 10.5194 18 12Z" /></svg>'
+  const muteIconDom = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" class="bg" /><path fill-rule="evenodd" clip-rule="evenodd" class="fill-1" d="M14 5L10 8H7V16H10L14 19V5ZM15.88 10.5821L16.5871 9.875L18.0013 11.2892L19.4155 9.875L20.1226 10.5821L18.7084 11.9963L20.1226 13.4105L19.4155 14.1176L18.0013 12.7034L16.5871 14.1176L15.88 13.4105L17.2942 11.9963L15.88 10.5821Z" /></svg>'
+  const pauseIconDom = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" class="bg" /><path fill-rule="evenodd" clip-rule="evenodd" class="fill-1" d="M11 6H8V18H11V6ZM16 6H13V18H16V6Z" /></svg>'
+  const playIconDom = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" class="bg" /><path class="fill-1" d="M7 5L19 12L7 19V12V5Z" /></svg>'
+
   /* * * * * * * * * * * * * * * * * * *
    *
    * SELECT NODE AND RENDER
@@ -78,26 +83,27 @@ interface Values {
     if (props.sound !== true) videoAttributes.push('muted')
 
     const videoNode = getVideoNode(getNode)
-    const isPlaying = videoNode !== null
-      ? videoIsPlaying(videoNode)
-      : false
+    const isPlaying = videoNode !== null ? videoIsPlaying(videoNode) : false
+
+    const statusIconDom = isPlaying ? pauseIconDom : playIconDom
+    const soundIconDom = props.sound !== true ? muteIconDom : loudIconDom
 
     const innerDomString = values?.has_rendered === true ? null : `
       <div class="${c}__video-slot">
         <video class="${c}__video" ${videoAttributes.join(' ')}>
           <source src="${props.source}" />
         </video>
-        <div class="${c}__sound-button">Mute</div>
+        <div class="${c}__text-overlay">
+          <div class="${c}__title">${props.title}</div>
+          <div class="${c}__kicker">${props.kicker}</div>
+        </div>
+        <div class="${c}__sound-button">${soundIconDom}</div>
         <div class="${c}__controls-bottom-bar">
-          <div class="${c}__play-pause-button">${isPlaying ? '||': '|>'}</div>
+          <div class="${c}__play-pause-button">${statusIconDom}</div>
           <div class="${c}__timeline">
             <div class="${c}__timeline-progress-bar"></div>
           </div>
           <div class="${c}__fullscreen-button">FS</div>
-        </div>
-        <div class="${c}__text-overlay">
-          <div class="${c}__title">${props.title}</div>
-          <div class="${c}__kicker">${props.kicker}</div>
         </div>
         <div class="${c}__sensitive-content-overlay">
           <div class="${c}__disclaimer">${props.disclaimer_text}</div>
@@ -128,7 +134,7 @@ interface Values {
       if ($video === undefined || $video === null) return
       
       const options = { threshold: .3 }
-      const observer = new IntersectionObserver((entries, observer) => {
+      const observer = new IntersectionObserver(entries => {
         const entry = entries[0]
         if (entry === undefined) return
         if (entry.isIntersecting) {
@@ -136,12 +142,8 @@ interface Values {
           const state = getState()
           if (props?.sensitive_content) {
             if (state?.is_disclosed) (entry.target as HTMLVideoElement).play()
-          } else {
-            (entry.target as HTMLVideoElement).play()
-          }
-        } else {
-          (entry.target as HTMLVideoElement).pause()
-        }
+          } else (entry.target as HTMLVideoElement).play()
+        } else (entry.target as HTMLVideoElement).pause()
       }, options)
       observer.observe($video)
     }
@@ -163,11 +165,11 @@ interface Values {
         if (isPlaying) {
           $video.pause()
           const playBtn = node?.querySelector(`.${c}__play-pause-button`) ?? null
-          if (playBtn !== null) playBtn.innerHTML = '|>'
+          if (playBtn !== null) playBtn.innerHTML = playIconDom
         } else {
           $video.play()
           const playBtn = node?.querySelector(`.${c}__play-pause-button`) ?? null
-          if (playBtn !== null) playBtn.innerHTML = '||'
+          if (playBtn !== null) playBtn.innerHTML = pauseIconDom
         }
       }
     }
@@ -181,8 +183,15 @@ interface Values {
         if ($video === undefined || $video === null) return
         const isMuted = $video.muted
         setState({ is_muted: !isMuted })
-        if (isMuted) $video.muted = false
-        else $video.muted = true
+        if (isMuted) {
+          $video.muted = false
+          const muteBtn = node?.querySelector(`.${c}__sound-button`) ?? null
+          if (muteBtn !== null) muteBtn.innerHTML = loudIconDom
+        } else {
+          $video.muted = true
+          const muteBtn = node?.querySelector(`.${c}__sound-button`) ?? null
+          if (muteBtn !== null) muteBtn.innerHTML = muteIconDom
+        }
       }
     }
 
@@ -196,16 +205,6 @@ interface Values {
         if ($video === null || $progressBar === null) return
         const percentProgress = 100 * $video.currentTime / $video.duration
         $progressBar.style.width = `${percentProgress}%`
-      }
-    }
-
-    const videoEndedListener: LM.CompRendererListenerDescriptor = {
-      selector: `.${c}__video`,
-      eventType: 'ended',
-      handler: () => {
-        const node = getNode()
-        const $playButton = (node?.querySelector(`.${c}__play-pause-button`) ?? null) as HTMLElement|null
-        if ($playButton !== null) $playButton.innerHTML = '|>'
       }
     }
 
@@ -235,13 +234,79 @@ interface Values {
       }
     }
 
+    const videoPlayingListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__video`,
+      eventType: 'playing',
+      handler: () => {
+        const node = getNode()
+        const $playButton = (node?.querySelector(`.${c}__play-pause-button`) ?? null) as HTMLElement|null
+        if ($playButton !== null) {
+          $playButton.innerHTML = pauseIconDom
+          if (node === null) return
+          node.classList.add(`${c}_playing`)
+        }
+      }
+    }
+
+    const videoWaitingListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__video`,
+      eventType: 'waiting',
+      handler: () => {
+        const node = getNode()
+        const $playButton = (node?.querySelector(`.${c}__play-pause-button`) ?? null) as HTMLElement|null
+        if ($playButton !== null) $playButton.innerHTML = playIconDom
+        if (node === null) return
+        node.classList.remove(`${c}_playing`)
+      }
+    }
+
+    const videoEndedListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__video`,
+      eventType: 'ended',
+      handler: () => {
+        const node = getNode()
+        const $playButton = (node?.querySelector(`.${c}__play-pause-button`) ?? null) as HTMLElement|null
+        if ($playButton !== null) $playButton.innerHTML = playIconDom
+        if (node === null) return
+        node.classList.remove(`${c}_playing`)
+      }
+    }
+
+    const videoPausedListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__video`,
+      eventType: 'pause',
+      handler: () => {
+        const node = getNode()
+        const $playButton = (node?.querySelector(`.${c}__play-pause-button`) ?? null) as HTMLElement|null
+        if ($playButton !== null) $playButton.innerHTML = playIconDom
+        if (node === null) return
+        node.classList.remove(`${c}_playing`)
+      }
+    }
+
+    const videoClickListener: LM.CompRendererListenerDescriptor = {
+      selector: `.${c}__video`,
+      eventType: 'click',
+      handler: (e) => {
+        const target = e.target as HTMLVideoElement|null
+        if (target === null) return
+        if (!target.classList.contains(`${c}__video`)) return
+        if (videoIsPlaying(target)) target.pause()
+        else target.play()
+      }
+    }
+
     const listeners = [
       playPauseClickListener,
       muteClickListener,
-      videoTimeupdateListener,
-      videoEndedListener,
       timelineClickListener,
-      discloserClickListener
+      discloserClickListener,
+      videoTimeupdateListener,
+      videoPlayingListener,
+      videoWaitingListener,
+      videoEndedListener,
+      videoPausedListener,
+      videoClickListener
     ]
 
     /* * * * * * * * * * * * * * * * * * *
