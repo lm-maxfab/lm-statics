@@ -103,7 +103,7 @@ interface Values {
           <div class="${c}__timeline">
             <div class="${c}__timeline-progress-bar"></div>
           </div>
-          <div class="${c}__fullscreen-button">FS</div>
+          <!-- <div class="${c}__fullscreen-button">FS</div> -->
         </div>
         <div class="${c}__sensitive-content-overlay">
           <div class="${c}__disclaimer">${props.disclaimer_text}</div>
@@ -320,7 +320,7 @@ interface Values {
     if (props.sound_controls) classModifiers.push('with-sound-controls')
     if (props.play_controls) classModifiers.push('with-play-controls')
     if (props.time_controls) classModifiers.push('with-timeline')
-    if (props.fullscreen_controls) classModifiers.push('with-fullscreen-controls')
+    // if (props.fullscreen_controls) classModifiers.push('with-fullscreen-controls')
     if (props.sensitive_content) classModifiers.push('sensitive')
     if (state?.is_disclosed) classModifiers.push('disclosed')
 
