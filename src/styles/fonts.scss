@@ -1,6 +1,42 @@
 /* * * * * * * * * * * * * * *
  *
- * THE ANTIQUA
+ * THE ANTIQUA B - VARIABLE
+ *
+ * * * * * * * * * * * * * * */
+
+ @font-face {
+  font-family: "The-Antiqua-B-Variable";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 125 900;
+  font-stretch: 25% 150%;
+  src:
+    /* {{LINE_STRIP:dev}} */ url(https://www.lemonde.fr/dist/assets/fonts/variables/the-antiqua-b/TheAntiquaB-LeMonde.woff2) format("woff2-variations"),
+    /* {{LINE_STRIP:dev}} */ url(https://www.lemonde.fr/dist/assets/fonts/variables/the-antiqua-b/TheAntiquaB-LeMonde.woff2) format("woff2"),
+
+    url({{ROOT_URL}}/fonts/the-antiqua-b-variable/TheAntiquaB-LeMonde.woff2) format("woff2-variations"),
+    url({{ROOT_URL}}/fonts/the-antiqua-b-variable/TheAntiquaB-LeMonde.woff2) format("woff2");
+}
+
+
+
+@font-face {
+  font-family: "The-Antiqua-B-Variable";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 125 900;
+  font-stretch: 25% 150%;
+  src:
+    /* {{LINE_STRIP:dev}} */ url(https://www.lemonde.fr/dist/assets/fonts/variables/the-antiqua-b/TheAntiquaB-LeMonde-Italic.woff2) format("woff2-variations"),
+    /* {{LINE_STRIP:dev}} */ url(https://www.lemonde.fr/dist/assets/fonts/variables/the-antiqua-b/TheAntiquaB-LeMonde-Italic.woff2) format("woff2"),
+
+    url({{ROOT_URL}}/fonts/the-antiqua-b-variable/TheAntiquaB-LeMonde-Italic.woff2) format("woff2-variations"),
+    url({{ROOT_URL}}/fonts/the-antiqua-b-variable/TheAntiquaB-LeMonde-Italic.woff2) format("woff2");
+}
+
+/* * * * * * * * * * * * * * *
+ *
+ * THE ANTIQUA B
  *
  * * * * * * * * * * * * * * */
 
