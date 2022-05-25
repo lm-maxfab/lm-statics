@@ -16,6 +16,7 @@
 <div class="lmv-component lmv-video">
   <div class="lmv-component__props" style="display: none;">
     <data title="source">URL de la vidéo</data>
+    <data title="poster_url">URL de l'image de preview</data>
     <data title="title">Un titre</data>
     <data title="kicker">Un sous-titre</data>
     <data title="legend">Une légende</data>

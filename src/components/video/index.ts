@@ -2,6 +2,7 @@
 
 interface Props {
   source?: string
+  poster_url?: string
   title?: string
   kicker?: string
   legend?: string
@@ -78,9 +79,10 @@ interface Values {
      * DOM STRING
      *
      * * * * * * * * * * * * * * * * * * */
-    const videoAttributes = []
+    const videoAttributes = ['playsinline']
     if (props.loop) videoAttributes.push('loop')
     if (props.sound !== true) videoAttributes.push('muted')
+    if (props.poster_url !== undefined) videoAttributes.push(`poster="${props.poster_url}"`)
 
     const videoNode = getVideoNode(getNode)
     const isPlaying = videoNode !== null ? videoIsPlaying(videoNode) : false
@@ -92,10 +94,11 @@ interface Values {
       <div class="${c}__video-slot">
         <video class="${c}__video" ${videoAttributes.join(' ')}>
           <source src="${props.source}" />
+          ${props.poster_url !== undefined ? `<img src="${props.poster_url}" />` : ''}
         </video>
         <div class="${c}__text-overlay">
-          <div class="${c}__title">${props.title}</div>
-          <div class="${c}__kicker">${props.kicker}</div>
+          ${props.title !== undefined ? `<div class="${c}__title">${props.title}</div>` : ''}
+          ${props.kicker !== undefined ? `<div class="${c}__kicker">${props.kicker}</div>` : ''}
         </div>
         <div class="${c}__sound-button">${soundIconDom}</div>
         <div class="${c}__controls-bottom-bar">
@@ -111,8 +114,8 @@ interface Values {
         </div>
       </div>
       <div class="${c}__info">
-        <span class="${c}__legend">${props.legend}&nbsp;</span>
-        <span class="${c}__credits">${props.credits}</span>
+        ${props.legend !== undefined ? `<span class="${c}__legend">${props.legend}&nbsp;</span>` : ''}
+        ${props.credits !== undefined ? `<span class="${c}__credits">${props.credits}</span>` : ''}
       </div>
     `
 
