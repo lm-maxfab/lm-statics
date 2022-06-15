@@ -1,15 +1,11 @@
-function readPropsNode (propsNode: HTMLDataElement): any {
+export default function readPropsNode (propsNode: HTMLDataElement): any {
   const nodeDataType = propsNode.dataset['type']
-
   const unnamedDataChildren = [...propsNode.querySelectorAll(':scope > data:not([data-title])')] as HTMLDataElement[]
   const namedDataChildren = [...propsNode.querySelectorAll(':scope > data[data-title]:not([data-title=""])')] as HTMLDataElement[]
-  const dataChildren = [
-    ...unnamedDataChildren,
-    ...namedDataChildren
-  ]
+  const dataChildren = [...unnamedDataChildren, ...namedDataChildren]
 
-  // No data children => return the value of innerHTML
   if (dataChildren.length === 0) {
+    // No data children => return the value of innerHTML
     const rawNodeVal = propsNode.innerHTML.trim()
     if (nodeDataType === 'number') return parseFloat(rawNodeVal)
     if (nodeDataType === 'boolean') {
@@ -20,12 +16,12 @@ function readPropsNode (propsNode: HTMLDataElement): any {
     else if (nodeDataType === 'null') return null
     else return rawNodeVal
 
-  // With only unnamed data children
   } else if (namedDataChildren.length === 0) {
+    // With only unnamed data children
     return unnamedDataChildren.map(dataChild => readPropsNode(dataChild))
-  
-  // With named data children
+
   } else {
+    // With named data children (unnamed are ignored)
     const returned: any = {}
     dataChildren.forEach(dataChild => {
       const title = dataChild.dataset['title']
@@ -35,5 +31,3 @@ function readPropsNode (propsNode: HTMLDataElement): any {
     return returned
   }
 }
-
-export default readPropsNode
