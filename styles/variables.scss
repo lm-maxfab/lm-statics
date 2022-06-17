@@ -1,4 +1,7 @@
-.lm-app, .lmv-component, .lm-page {
+.lm-app,
+.lmv-component,
+.lmh-component,
+.lm-page {
 
   /* Cancel lemonde.fr's reset */
   --lm-lemonde-default-objects-max-width: unset;

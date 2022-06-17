@@ -5,7 +5,7 @@
 In any article, add these css and js:
 
 ```html
-<link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/le-monde/styles/reset.css">
+<link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/reset.css">
 <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/fonts.css">
 <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/styles/variables.css">
 <link rel="stylesheet" type="text/css" href="{{ROOT_URL}}/components/styles.css">
