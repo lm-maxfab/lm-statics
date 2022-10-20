@@ -1,0 +1,256 @@
+/* Global dependency */
+html {
+  scroll-behavior: smooth !important;
+}
+
+html[data-color-mode="dark"] {
+  .carto-ukraine-cover {
+    background-color: #FFFFFF;
+  }
+
+  .carto-ukraine-head-paragraph {
+    .carto-ukraine-head-paragraph__title {
+      color: rgba(255, 255, 255, .85);
+    }
+    
+    .carto-ukraine-head-paragraph__text {
+      color: rgba(255, 255, 255, .7);
+    }
+  }
+
+  .carto-ukraine-context-paragraph {
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+
+    .carto-ukraine-context-paragraph__title {
+      color: rgba(255, 255, 255, .85);
+    }
+    
+    .carto-ukraine-context-paragraph__text {
+      color: rgba(255, 255, 255, .7);
+    }
+    
+    .carto-ukraine-context-paragraph__link {
+      color: #BE1514;
+    }
+  }
+
+  .carto-ukraine-useful-links {
+    .carto-ukraine-useful-links__title {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .carto-ukraine-useful-links__links {
+      .carto-ukraine-useful-links__link {
+        .carto-ukraine-useful-links__actual-link {
+          color: #4ab6ea;
+        }
+        
+        .carto-ukraine-useful-links__date {
+          color: rgba(255, 255, 255, .7);
+        }
+      }
+    }
+  }
+
+  .carto-ukraine-post-head {
+    border-top: 1px solid rgba(255, 255, 255, .2);
+
+    &::before {
+      background-color: rgba(255, 255, 255, .2);
+    }
+
+    .carto-ukraine-post-head__title {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .carto-ukraine-post-head__date {
+      color: rgba(255, 255, 255, .7);
+    }
+  }
+}
+
+.snippet-container {
+  overflow-y: hidden;
+}
+
+/* Safe zone */
+.carto-ukraine-cover {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .carto-ukraine-cover__image {
+    height: 280px;
+    background-image: url({{PARENT_URL}}/assets/carte_entete.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 16px;
+  }
+
+  .carto-ukraine-cover__text {
+    font-family: var(--ff-marr-sans-condensed);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: #717B8E;
+    margin: 0 auto;
+    text-transform: uppercase;
+  }
+}
+
+.carto-ukraine-head-paragraph {
+  p {
+    margin: 0;
+  }
+
+  .carto-ukraine-head-paragraph__title {
+    font-family: var(--ff-marr-sans);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #2A303B;
+    margin-bottom: 12px;
+
+    @media screen and (max-width: 800px) {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .carto-ukraine-head-paragraph__text {
+    font-family: var(--ff-marr-sans);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666E80;
+  }
+}
+
+.carto-ukraine-context-paragraph {
+  border-top: 1px solid #E2E4E9;
+  border-bottom: 1px solid #E2E4E9;
+  padding: 16px 0;
+
+  p {
+    margin: 0;
+  }
+
+  .carto-ukraine-context-paragraph__title {
+    font-family: var(--ff-marr-sans);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #2A303B;
+  }
+
+  .carto-ukraine-context-paragraph__text {
+    font-family: var(--ff-marr-sans);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666E80;
+  }
+
+  .carto-ukraine-context-paragraph__link {
+    font-family: var(--ff-marr-sans);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #BE1514;
+    text-decoration: underline !important;
+
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
+}
+
+.carto-ukraine-useful-links {
+  .carto-ukraine-useful-links__title {
+    font-family: var(--ff-marr-sans);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #2A303B;
+    margin-bottom: 16px;
+  }
+
+  .carto-ukraine-useful-links__links {
+    list-style-type: square;
+    padding-inline-start: 16px;
+
+    .carto-ukraine-useful-links__link {
+      margin-bottom: 8px;
+
+      .carto-ukraine-useful-links__actual-link {
+        font-family: var(--ff-marr-sans);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #2A303B;
+        text-decoration: underline !important;
+  
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
+  
+      .carto-ukraine-useful-links__date {
+        font-family: var(--ff-marr-sans);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #666E80;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.carto-ukraine-post-head {
+  position: relative;
+  border-top: 1px solid #E2E4E9;
+  padding-top: 32px;
+  margin-top: 64px;
+  
+  &::before {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: -3px;
+    background-color: #E2E4E9;
+  }
+
+  .carto-ukraine-post-head__date {
+    font-family: var(--ff-marr-sans);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #565E70;
+    margin: 0;
+    margin-bottom: 12px;
+  }
+
+  .carto-ukraine-post-head__title {
+    font-family: var(--ff-the-antiqua-b);
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1.25;
+    color: #2A303C;
+    margin: 0;
+
+    @media screen and (max-width: 800px) {
+      font-size: 22px;
+    }
+  }
+
+  .carto-ukraine-post-head__anchor {
+    position: absolute;
+    top: calc(-1 * var(--nav-height) - 32px);
+    visibility: collapse;
+  }
+}
