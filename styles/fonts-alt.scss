@@ -28,7 +28,7 @@
   font-family: "Sang-Bleu-OG-Sans";
   font-display: swap;
   font-style: normal;
-  font-weight: 200;
+  font-weight: 300;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-sans/SangBleuOGSans-Light-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-sans/SangBleuOGSans-Light-WebS.woff2);
@@ -38,7 +38,7 @@
   font-family: "Sang-Bleu-OG-Sans";
   font-display: swap;
   font-style: italic;
-  font-weight: 200;
+  font-weight: 300;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-sans/SangBleuOGSans-LightItalic-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-sans/SangBleuOGSans-LightItalic-WebS.woff2);
@@ -154,7 +154,7 @@
   font-family: "Sang-Bleu-OG-Serif";
   font-display: swap;
   font-style: normal;
-  font-weight: 200;
+  font-weight: 300;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-Light-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-Light-WebS.woff2);
@@ -164,7 +164,7 @@
   font-family: "Sang-Bleu-OG-Serif";
   font-display: swap;
   font-style: italic;
-  font-weight: 200;
+  font-weight: 300;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-LightItalic-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-LightItalic-WebS.woff2);
@@ -234,7 +234,7 @@
   font-family: "Sang-Bleu-OG-Serif";
   font-display: swap;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 900;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-Black-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-Black-WebS.woff2);
@@ -244,7 +244,7 @@
   font-family: "Sang-Bleu-OG-Serif";
   font-display: swap;
   font-style: italic;
-  font-weight: 800;
+  font-weight: 900;
   src:
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-BlackItalic-WebS.woff),
     url({{ROOT_URL}}/fonts/sang-bleu-og-serif/SangBleuOGSerif-BlackItalic-WebS.woff2);
@@ -306,4 +306,54 @@
   src:
     url({{ROOT_URL}}/fonts/pixeloid-mono/PixeloidMono.woff),
     url({{ROOT_URL}}/fonts/pixeloid-mono/PixeloidMono.woff2);
+}
+
+/* * * * * * * * * * * * * * *
+ *
+ * GIORGIO
+ *
+ * * * * * * * * * * * * * * */
+
+/* Light */
+@font-face {
+  font-family: "Giorgio-Sans";
+  src:
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Light-Web.woff2) format("woff2"),
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Light-Web.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+/* Regular */
+@font-face {
+  font-family: "Giorgio-Sans";
+  src:
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Regular-Web.woff2) format("woff2"),
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Regular-Web.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Giorgio-Sans";
+  src:
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Bold-Web.woff2) format("woff2"),
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Bold-Web.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+/* Black */
+@font-face {
+  font-family: "Giorgio-Sans";
+  src:
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Black-Web.woff2) format("woff2"),
+    url({{ROOT_URL}}/fonts/giorgio-sans/GiorgioSans-Black-Web.woff) format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
 }
