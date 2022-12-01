@@ -1,5 +1,5 @@
 :root {
-  --lm-lemonde-default-objects-max-width: 100%;
+  --lm-lemonde-default-objects-max-width: unset;
 }
 
 @viewport {
@@ -25,11 +25,6 @@ img {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-}
-
-figure {
-  line-height: 0;
-  margin: 0;
 }
 
 textarea, table, td, th, code, pre, samp {
