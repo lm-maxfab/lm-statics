@@ -1,46 +1,47 @@
 :root {
-  --lm-lemonde-default-objects-max-width: unset;
+	--lm-lemonde-default-objects-max-width: unset
 }
 
 @viewport {
-  zoom: 1.0;
-  user-zoom: fixed;
+	zoom: 1;
+	user-zoom: fixed
 }
 
-body, html {
-  padding: 0;
-  margin: 0;
+body,
+html {
+	padding: 0;
+	margin: 0
 }
 
-img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {
-  max-width: var(--lm-lemonde-default-objects-max-width);
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(blockquote, code, embed, iframe, img, input, object, pre, table, td, textarea, video) {
+	max-width: var(--lm-lemonde-default-objects-max-width)
 }
 
-input:focus, select:focus, textarea:focus, button:focus {
-  outline: none;
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(button:focus, input:focus, select:focus, textarea:focus) {
+	outline: 0
 }
 
-img {
-  display: block;
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(img) {
+	display: block;
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap
 }
 
-textarea, table, td, th, code, pre, samp {
-  word-wrap: break-word;
-  hyphens: auto;
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(code, pre, samp, table, td, textarea, th) {
+	word-wrap: break-word;
+	hyphens: auto
 }
 
-h1, h2, h3, h4, h5 {
-  margin: 0;
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(h1, h2, h3, h4, h5) {
+	margin: 0
 }
 
-sup, sub {
-  line-height: 0;
+:where(.lm-app, .lmv-component, .lmh-component, .lm-page) :where(sub, sup) {
+	line-height: 0
 }
 
 .multimedia-embed {
-  padding: 0 !important;
-  border: none !important;
+	padding: 0 !important;
+	border: none !important
 }
